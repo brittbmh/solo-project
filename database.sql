@@ -56,6 +56,12 @@ CREATE TABLE "RSVP_Info_Fields" (
     "response" TEXT
 );
 
+INSERT INTO "Info_Fields" ("description") VALUES
+ ('Name'), ('Note'), ('Food Item'), ('Beverage Item'), ('Food Type'), ('Dietary Restrictions'), ('Game Bringing'), ('Special Requests');
+
+INSERT INTO "Party_Types" ("name") VALUES
+ ('Dinner Party'), ('Pot Luck'), ('Birthday Party'), ('Game Night'), ('Wine Tasting'), ('Bach Party'), ('Costume Party');
+
 STRETCH
 CREATE TABLE "Info_Field_Dropdown" (
 	"id" SERIAL PRIMARY KEY,
