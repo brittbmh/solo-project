@@ -2,25 +2,51 @@ import React, { Component} from 'react';
 import { connect } from 'react-redux';
 
 class NewEventType extends Component {
+    constructor(props) {
+        super(props);
 
-    componentDidMount() {
-        
+        this.state = {
+            partyType: '',
+        }
     }
 
-    getTypes = () => {
-        this.props.dispatch({ type: 'GET_PARTY_TYPES' })
+    componentDidMount() {
+        this.props.dispatch({ type: 'GET_PARTY_TYPES' }); 
+    }
+
+
+    handleChange = (event) => {
+        this.setState({ partyType: event.target.value})
+    }
+
+    buildSelectInput = () => {
+        const options = this.props.types.map((type, index) => {
+            return (<option key={index}
+                value={type.id}>
+                {type.name}
+            </option>
+            )
+        })
+        return options;
+    }
+
+    sendType = (event) => {
+        event.preventDefault();
+        this.props.dispatch({type: 'SET_NEW_TYPE', payload: this.state.partyType})
     }
 
     render () {
         return (
             <div>
                 <h3>Select Party Type:</h3>
-                <button onClick={this.getTypes}>Click</button>
-                {/* <form >
-                    <select >
+                {JSON.stringify(this.props.types)}
+                <form onSubmit={this.sendType} >
+                    <select defaultValue='' required onChange={this.handleChange}>
+                        <option value="" disabled defaultValue>Select your option</option>
+                        {this.buildSelectInput()}
                     </select>
                     <button type='submit'>Set Category</button>
-                </form> */}
+                </form>
             </div>
         )
     }
