@@ -16,6 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import NewEvent from '../New Event/NewEvent'
 
 import './App.css';
 
@@ -54,6 +55,11 @@ class App extends Component {
               exact
               path="/info"
               component={InfoPage}
+            />
+            <Route
+              
+              path="/NewEvent"
+              component={NewEvent}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
