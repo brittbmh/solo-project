@@ -3,8 +3,11 @@ import {connect} from 'react-redux';
 
 class RegisterPage extends Component {
   state = {
+    firstname: '',
+    lastname: '',
     username: '',
-    password: '',
+    email: '',
+    password: ''
   };
 
   registerUser = (event) => {
@@ -15,7 +18,10 @@ class RegisterPage extends Component {
         type: 'REGISTER',
         payload: {
           username: this.state.username,
+          email: this.state.email,
           password: this.state.password,
+          firstName: this.state.firstname,
+          lastName: this.state.lastname
         },
       });
     } else {
@@ -43,8 +49,30 @@ class RegisterPage extends Component {
         <form onSubmit={this.registerUser}>
           <h1>Register User</h1>
           <div>
+            <label htmlFor="firstName">
+              First Name:
+              <input
+                type="text"
+                name="firstName"
+                value={this.state.firstname}
+                onChange={this.handleInputChangeFor('firstname')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="lastName">
+              Last Name:
+              <input
+                type="text"
+                name="lastName"
+                value={this.state.lastName}
+                onChange={this.handleInputChangeFor('lastname')}
+              />
+            </label>
+          </div>
+          <div>
             <label htmlFor="username">
-              Username:
+              username:
               <input
                 type="text"
                 name="username"
@@ -54,8 +82,19 @@ class RegisterPage extends Component {
             </label>
           </div>
           <div>
+            <label htmlFor="email">
+              email:
+              <input
+                type="text"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleInputChangeFor('email')}
+              />
+            </label>
+          </div>
+          <div>
             <label htmlFor="password">
-              Password:
+              password:
               <input
                 type="password"
                 name="password"

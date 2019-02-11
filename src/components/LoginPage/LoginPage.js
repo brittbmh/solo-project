@@ -44,7 +44,7 @@ class LoginPage extends Component {
           <h1>Login</h1>
           <div>
             <label htmlFor="username">
-              Username:
+              email:
               <input
                 type="text"
                 name="username"
@@ -55,7 +55,7 @@ class LoginPage extends Component {
           </div>
           <div>
             <label htmlFor="password">
-              Password:
+              password:
               <input
                 type="password"
                 name="password"
