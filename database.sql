@@ -62,6 +62,11 @@ INSERT INTO "Info_Fields" ("description") VALUES
 INSERT INTO "Party_Types" ("name") VALUES
  ('Dinner Party'), ('Pot Luck'), ('Birthday Party'), ('Game Night'), ('Wine Tasting'), ('Bach Party'), ('Costume Party');
 
+
+INSERT INTO "Party_Types_Info_Fields" ("party_type_id", "info_field_id") 
+VALUES (1,1), (1,2), (1,6), (2,1), (2,2), (2,3), (2,5), (3,1), (3,2), 
+(4,1), (4,7), (4,8), (5,1), (5,2), (5,4), (6,1), (6,8), (7,1), (7,8);
+
 STRETCH
 CREATE TABLE "Info_Field_Dropdown" (
 	"id" SERIAL PRIMARY KEY,

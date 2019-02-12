@@ -9,6 +9,15 @@ const setPartyTypes = (state = [], action) => {
     }
 }
 
+const setNewParty = (state = [], action)  => {
+    switch (action.type) {
+        case 'SET_NEW_PARTY' :
+            return [...state, action.payload];
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     setPartyTypes,
 });
