@@ -2,11 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class NewEventOptions extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            isGoing: false,
+        };
+        this.handleChange = this.handleChange.bind(this);
+    }
 
+    handleChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        })
+    }
 
     componentDidMount() {
         this.getPartyOptions();
-        this.props.dispatch({type: 'GET_PARTY_FIELDS'})
     }
 
     getPartyOptions = () => {
@@ -16,8 +31,16 @@ class NewEventOptions extends Component {
     mapInfo = () => {
         return (
             this.props.partyOptions.map((option, i) => {
-                console.log(option);
-                return (<li>{option.description}</li>)
+                const desc = option.description
+                return (<label>
+                    
+                        <input
+                        name={desc}
+                        type="checkbox"
+                        checked={this.state.desc}
+                        onChange={this.handleChange}/>
+                        {desc}
+                </label>)
             })
         )
     }
@@ -26,9 +49,11 @@ class NewEventOptions extends Component {
         return (
             <div>
                 <h3>Select Info Needed From Guests</h3>
-                <ul>
+                <form>
                     {this.mapInfo()}
-                </ul>
+                </form>
+
+               
                 {JSON.stringify(this.props.newParty)}
                 {JSON.stringify(this.props.partyOptions)}
             </div>
