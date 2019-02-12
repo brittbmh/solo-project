@@ -11,6 +11,7 @@ function* fetchPartyTypes() {
     }
 }
 
+
 function* fetchPartyOptions(action) {
     try {
         console.log(action.payload);

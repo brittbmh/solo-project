@@ -14,9 +14,10 @@ router.get('/types', (req, res) => {
     })
 });
 
+
 router.get('/options/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const queryText = `SELECT "info_field_id" FROM "Party_Types_Info_Fields" WHERE "party_type_id" = $1`;
+    const queryText = `SELECT "Info_Fields".* FROM "Party_Types_Info_Fields" JOIN "Info_Fields" ON "Party_Types_Info_Fields"."info_field_id" = "Info_Fields"."id" WHERE "party_type_id" = $1`;
     pool.query(queryText, [id]).then((result) => {
         console.log(result.rows);
         

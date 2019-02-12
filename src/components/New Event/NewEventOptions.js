@@ -6,6 +6,7 @@ class NewEventOptions extends Component {
 
     componentDidMount() {
         this.getPartyOptions();
+        this.props.dispatch({type: 'GET_PARTY_FIELDS'})
     }
 
     getPartyOptions = () => {
@@ -16,12 +17,9 @@ class NewEventOptions extends Component {
         return (
             this.props.partyOptions.map((option, i) => {
                 console.log(option);
-
-                return (<li>{option.info_field_id}</li>)
+                return (<li>{option.description}</li>)
             })
-
         )
-
     }
 
     render() {
