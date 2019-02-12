@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { stat } from 'fs';
 
 const setPartyTypes = (state = [], action) => {
     switch (action.type) {
@@ -7,6 +8,11 @@ const setPartyTypes = (state = [], action) => {
         default:
             return state;
     }
+}
+
+const defaultParty = {
+    partyType: '',
+    partyOptions: ''
 }
 
 const setPartyOptions = (state = [], action) => {
@@ -18,12 +24,12 @@ const setPartyOptions = (state = [], action) => {
     }
 }
 
-const setNewParty = (state = [], action)  => {
+const setNewParty = (state = defaultParty, action)  => {
     switch (action.type) {
-        case 'SET_NEW_PARTY' :
-            return [...state, action.payload];
+        case 'SET_NEW_PARTY_TYPE' :
+            return {...stat, partyType: action.payload};
         case 'CLEAR_NEW_PARTY' :
-            return [];
+            return defaultParty;
         default:
             return state;
     }

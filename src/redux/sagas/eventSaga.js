@@ -11,9 +11,11 @@ function* fetchPartyTypes() {
     }
 }
 
-function* fetchPartyOptions() {
+function* fetchPartyOptions(action) {
     try {
-        const partyOptions = yield axios.get('/api/events/options');
+        console.log(action.payload);
+        
+        const partyOptions = yield axios.get(`/api/events/options/${action.payload}`);
         yield put({ type: 'SET_PARTY_OPTIONS', payload: partyOptions.data })
     }
     catch (error) {

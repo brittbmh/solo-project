@@ -32,8 +32,8 @@ class NewEventType extends Component {
 
     sendType = (event) => {
         event.preventDefault();
-        this.props.dispatch({ type: 'SET_NEW_PARTY', payload: this.state });
-        this.props.history.push('/')
+        this.props.dispatch({ type: 'SET_NEW_PARTY_TYPE', payload: this.state.partyType });
+        this.props.history.push('/NewEvent/Options')
     }
 
     render() {

@@ -5,18 +5,26 @@ class NewEventOptions extends Component {
 
 
     componentDidMount() {
-        this.props.dispatch({ type: 'GET_PARTY_OPTIONS' });
+        this.getPartyOptions();
+    }
+
+    getPartyOptions = () => {
+        this.props.dispatch({ type: 'GET_PARTY_OPTIONS', payload: this.props.newParty.partyType });
     }
 
     render() {
         return (
-            <div></div>
+            <div>
+                {JSON.stringify(this.props.newParty)}
+                {JSON.stringify(this.props.partyOptions)}
+            </div>
         )
     }
 }
 
 const mapReduxStoreToProps = (reduxStore) => ({
-    partyType: reduxStore.events.setNewParty,
+    
+    newParty: reduxStore.events.setNewParty,
     partyOptions: reduxStore.events.setPartyOptions
 })
 
