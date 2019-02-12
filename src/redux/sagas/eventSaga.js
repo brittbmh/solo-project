@@ -11,9 +11,20 @@ function* fetchPartyTypes() {
     }
 }
 
+function* fetchPartyOptions() {
+    try {
+        const partyOptions = yield axios.get('/api/events/options');
+        yield put({ type: 'SET_PARTY_OPTIONS', payload: partyOptions.data })
+    }
+    catch (error) {
+        yield console.log('error in fetchPartyOptions', error);
+    }
+}
+
 
 function* eventSaga() {
     yield takeEvery('GET_PARTY_TYPES', fetchPartyTypes);
+    yield takeEvery('GET_PARTY_OPTIONS', fetchPartyOptions);
 }
 
 export default eventSaga;

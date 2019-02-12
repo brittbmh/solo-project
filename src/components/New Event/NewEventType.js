@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class NewEventType extends Component {
@@ -11,12 +11,12 @@ class NewEventType extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch({ type: 'GET_PARTY_TYPES' }); 
+        this.props.dispatch({ type: 'GET_PARTY_TYPES' });
     }
 
 
     handleChange = (event) => {
-        this.setState({ partyType: event.target.value})
+        this.setState({ partyType: event.target.value })
     }
 
     buildSelectInput = () => {
@@ -32,11 +32,11 @@ class NewEventType extends Component {
 
     sendType = (event) => {
         event.preventDefault();
-        this.props.dispatch({type: 'SET_NEW_PARTY', payload: this.state});
+        this.props.dispatch({ type: 'SET_NEW_PARTY', payload: this.state });
         this.props.history.push('/')
     }
 
-    render () {
+    render() {
         return (
             <div>
                 <h3>Select Party Type:</h3>
