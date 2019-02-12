@@ -10,10 +10,7 @@ const setPartyTypes = (state = [], action) => {
     }
 }
 
-const defaultParty = {
-    partyType: '',
-    partyOptions: ''
-}
+
 
 const setPartyOptions = (state = [], action) => {
     switch (action.type) {
@@ -24,10 +21,14 @@ const setPartyOptions = (state = [], action) => {
     }
 }
 
+const defaultParty = {
+    partyType: '9',
+}
+
 const setNewParty = (state = defaultParty, action)  => {
     switch (action.type) {
         case 'SET_NEW_PARTY_TYPE' :
-            return {...stat, partyType: action.payload};
+            return {...state, partyType: action.payload};
         case 'CLEAR_NEW_PARTY' :
             return defaultParty;
         default:
