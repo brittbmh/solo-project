@@ -5,7 +5,7 @@ class NewEventOptions extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isGoing: false,
+            
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -28,11 +28,16 @@ class NewEventOptions extends Component {
         this.props.dispatch({ type: 'GET_PARTY_OPTIONS', payload: this.props.newParty.partyType });
     }
 
+    setOptions = (event) => {
+        event.preventDefault();
+        this.props.dispatch({type: 'SET_NEW_PARTY_OPTIONS', payload: trueState })
+    }
+
     mapInfo = () => {
         return (
             this.props.partyOptions.map((option, i) => {
                 const desc = option.description
-                return (<label>
+                return (<label key={i}>
                     
                         <input
                         name={desc}
@@ -49,8 +54,10 @@ class NewEventOptions extends Component {
         return (
             <div>
                 <h3>Select Info Needed From Guests</h3>
-                <form>
+                <form onSubmit={this.setOptions}>
                     {this.mapInfo()}
+                    <button type="submit">Submit</button>
+                    {JSON.stringify(this.state)}
                 </form>
 
                

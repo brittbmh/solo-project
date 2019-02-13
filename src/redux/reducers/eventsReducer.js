@@ -21,12 +21,15 @@ const setPartyOptions = (state = [], action) => {
 
 const defaultParty = {
     partyType: '9',
+    partyOptions: ''
 }
 
 const setNewParty = (state = defaultParty, action)  => {
     switch (action.type) {
         case 'SET_NEW_PARTY_TYPE' :
             return {...state, partyType: action.payload};
+        case 'SET_NEW_PARTY_OPTIONS' :
+            return {...state, partyOptions: action.payload};
         case 'CLEAR_NEW_PARTY' :
             return defaultParty;
         default:
