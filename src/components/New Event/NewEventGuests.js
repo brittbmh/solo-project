@@ -33,9 +33,14 @@ class NewEventGuests extends Component {
                 <input name="email" type="text" placeholder="Guest Email" onChange={this.handleChange} />
                 <button onClick={this.addGuest}>Add Guest</button>
                 {JSON.stringify(this.state)}
+                {JSON.stringify(this.props.guestList)}
             </div>
         )
     }
 }
 
-export default connect()(NewEventGuests);
+const mapReduxStoreToProps = (reduxStore) => ({
+    guestList: reduxStore.events.guestList,
+})
+
+export default connect(mapReduxStoreToProps)(NewEventGuests);

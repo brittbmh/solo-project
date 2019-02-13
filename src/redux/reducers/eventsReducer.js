@@ -19,10 +19,25 @@ const setPartyOptions = (state = [], action) => {
     }
 }
 
-const guestList = (state = {}, action) => {
+const defaultEvent ={
+    eventId: 12,
+}
+
+const currentEvent = (state = defaultEvent, action) => {
     switch (action.type) {
         case 'SET_EVENT_ID':
-            return {...state, eventId: action.payload};
+            return {...state, eventId: action.payload.eventId};
+        default:
+            return state;
+    }
+}
+
+const guestList = (state = [], action ) => {
+    switch (action.type) {
+        case 'ADD_GUEST' :
+            return [...state, action.payload];
+        case 'CLEAR_GUESTS':
+            return [];
         default:
             return state;
     }
@@ -60,5 +75,6 @@ export default combineReducers({
     setPartyTypes,
     setNewParty,
     setPartyOptions,
-    guestList,
+    currentEvent,
+    guestList
 });
