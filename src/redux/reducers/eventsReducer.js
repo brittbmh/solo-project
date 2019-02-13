@@ -21,7 +21,7 @@ const setPartyOptions = (state = [], action) => {
 
 const defaultParty = {
     partyType: '9',
-    partyOptions: ["Note", "Name(s)"],
+    partyOptions: ["2", "6"],
     partyDetails: {
         title: "Bee's Party",
         date: "2/11/19",

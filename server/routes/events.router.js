@@ -32,19 +32,40 @@ router.get('/options/:id', (req, res) => {
 
 
 router.post('/new', (req, res) => {
-    const party = req.body;
-    const partyDetails = req.body.partyDetails;
-    const host = req.user.id;
-    console.log(req.body);
-    const queryText = `INSERT INTO "Events" ("title", "location", "description", "party_type_id", "date", "time_start", "end_time", "host") 
+    if(req.isAuthenticated()){
+        (async () => {
+            const client = await pool.connect();
+            try{
+                await client.query('BEGIN');
+                let queryText = `INSERT INTO "Events" ("title", "location", "description", "party_type_id", "date", "time_start", "end_time", "host") 
                         VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id";`;
-    pool.query(queryText, [partyDetails.title, partyDetails.location, partyDetails.description, party.partyType, partyDetails.date, partyDetails.startTime, partyDetails.endTime, host])
-    .then((response) => {
-        res.sendStatus(201);
-    }).catch((error) => {
-        res.sendStatus(500);
-        console.log(error);
-    })
+                const host = req.user.id;
+                const party = req.body;
+                const partyDetails = req.body.partyDetails;
+                const values = [partyDetails.title, partyDetails.location, partyDetails.description, party.partyType, partyDetails.date, partyDetails.startTime, partyDetails.endTime, host];
+                
+                const eventResult = await client.query(queryText, values);
+                const eventId = eventResult.rows[0].id;
+                
+                const partyOptions = req.body.partyOptions;
+                for (let option of partyOptions){
+                    queryText = `INSERT INTO "Event_Info_Fields" ("event_id", "info_field_id") VALUES ($1, $2);`;
+                    await client.query(queryText, [eventId, option]);
+                }
+                await client.query('COMMIT');
+                res.sendStatus(201);
+            }catch(error){
+                console.log('Rollback', error);
+                await client.query('ROLLBACK');
+                throw error;
+            }
+        })().catch((error) => {
+            console.log('CATCH', error);
+            res.sendStatus(500);
+        });
+    }else{
+        res.sendStatus(403);
+    }
 });
 
 module.exports = router;

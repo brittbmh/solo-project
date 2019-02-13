@@ -48,7 +48,7 @@ class NewEventOptions extends Component {
                 return (<label key={i}>
                     
                         <input
-                        name={desc}
+                        name={option.id}
                         type="checkbox"
                         checked={this.state.desc}
                         onChange={this.handleChange}/>
