@@ -38,6 +38,7 @@ class NewEventOptions extends Component {
         }
         console.log(trueState);
         this.props.dispatch({type: 'SET_NEW_PARTY_OPTIONS', payload: trueState })
+        this.props.history.push('/NewEvent/Details')
     }
 
     mapInfo = () => {
