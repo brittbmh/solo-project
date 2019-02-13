@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import sagaMiddlewareFactory from 'redux-saga';
 
 const setPartyTypes = (state = [], action) => {
     switch (action.type) {
@@ -34,13 +35,14 @@ const currentEvent = (state = defaultEvent, action) => {
             return state;
     }
 }
+const defaultGuest = [{guest: 'Sam', email: 'sam@gmailx.com'}];
 
-const guestList = (state = [], action ) => {
+const guestList = (state = defaultGuest, action ) => {
     switch (action.type) {
         case 'ADD_GUEST' :
             return [...state, action.payload];
         case 'CLEAR_GUESTS':
-            return [];
+            return defaultGuest;
         default:
             return state;
     }

@@ -31,19 +31,44 @@ class NewEventGuests extends Component {
     addGuest = (event) => {
         event.preventDefault();
         this.props.dispatch({type: 'ADD_GUEST', payload: this.state })
+        this.setState = {
+            guest: '',
+            email: ''
+        }
     }
+
+    guestDetails = () => {
+        return (
+            this.props.guestList.map((guest, i) => {
+                return (<tr key={i}><td>{guest.guest}</td><td>{guest.email}</td></tr>);
+            })
+        )
+    }
+
     render() {
         return (
             <div>
                 
                 <h3>{this.props.currentEvent.name}</h3>
                 <h4>Enter Guest Information</h4>
-                <input name="guest" type="text" placeholder="Guest Name" onChange={this.handleChange} />
+                <input name="guest" value={this.state.guest} type="text" placeholder="Guest Name" onChange={this.handleChange} />
                 <input name="email" type="text" placeholder="Guest Email" onChange={this.handleChange} />
                 <button onClick={this.addGuest}>Add Guest</button>
                 {JSON.stringify(this.props.currentEvent)}
                 {JSON.stringify(this.state)}
                 {JSON.stringify(this.props.guestList)}
+                <br />
+                <table>
+                    <th>
+                        <td>Guest Name</td>
+                        <td>Guest Email</td>
+                    </th>
+                    <tbody>
+                        {this.guestDetails()}
+                    </tbody>
+                </table>
+                <h4>Review Guest List and Submit</h4>
+                <button onClick={this.submitGuests}>Submit List</button>
             </div>
         )
     }
