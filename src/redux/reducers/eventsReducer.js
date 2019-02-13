@@ -30,6 +30,8 @@ const setNewParty = (state = defaultParty, action)  => {
             return {...state, partyType: action.payload};
         case 'SET_NEW_PARTY_OPTIONS' :
             return {...state, partyOptions: action.payload};
+        case 'SET_NEW_PARTY_DETAILS' :
+            return {...state, partyDetails: action.payload};
         case 'CLEAR_NEW_PARTY' :
             return defaultParty;
         default:
