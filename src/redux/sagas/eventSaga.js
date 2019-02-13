@@ -34,11 +34,24 @@ function* fetchPartyOptions(action) {
     }
 }
 
+function* fetchEventName(action) {
+    try{
+        const eventName = yield axios.get(`api/events/name/${action.payload}`);
+        console.log(eventName);
+        
+        yield put({type: 'SET_EVENT_NAME', payload: eventName.data})
+    }
+    catch(error){
+        yield console.log('error in fetchEventName', error);
+    }
+}
+
 
 function* eventSaga() {
     yield takeEvery('GET_PARTY_TYPES', fetchPartyTypes);
     yield takeEvery('GET_PARTY_OPTIONS', fetchPartyOptions);
     yield takeEvery('CREATE_NEW_EVENT', createNewParty);
+    yield takeEvery('GET_CURRENT_PARTY', fetchEventName)
 }
 
 export default eventSaga;

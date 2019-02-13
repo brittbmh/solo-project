@@ -27,6 +27,9 @@ const currentEvent = (state = defaultEvent, action) => {
     switch (action.type) {
         case 'SET_EVENT_ID':
             return {...state, eventId: action.payload.eventId};
+        case 'SET_EVENT_NAME':
+        console.log(action.payload);
+            return {...state, name: action.payload[0].title}
         default:
             return state;
     }

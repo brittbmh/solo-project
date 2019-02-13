@@ -14,6 +14,20 @@ router.get('/types', (req, res) => {
     })
 });
 
+router.get('/name/:id', (req, res) => {
+    console.log('in GET name');
+    
+    const id = parseInt(req.params.id);
+    const queryText = `SELECT "title" FROM "Events" WHERE "id" = $1;`;
+    pool.query(queryText, [id]).then((result) => {
+        console.log(result.rows);
+        res.send(result.rows)
+    }).catch((error) => {
+        res.sendStatus(500);
+        console.log(error);
+    })
+})
+
 
 router.get('/options/:id', (req, res) => {
     const id = parseInt(req.params.id);
@@ -23,7 +37,7 @@ router.get('/options/:id', (req, res) => {
     pool.query(queryText, [id]).then((result) => {
         console.log(result.rows);
         
-        res.send(result.rows);
+        res.send(result.rows[0].title);
     }).catch((error) => {
         res.sendStatus(500);
         console.log(error);
