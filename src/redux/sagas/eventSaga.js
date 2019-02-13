@@ -13,8 +13,11 @@ function* fetchPartyTypes() {
 
 function* createNewParty(action) {
     try{
-        yield axios.post('api/events/new', action.payload);
-        // yield put({type: 'CLEAR_NEW_PARTY'})
+        const eventId = yield axios.post('api/events/new', action.payload);
+        yield put({type: 'SET_EVENT_ID', payload: eventId.data})
+        console.log(eventId.data);
+        
+        yield put({type: 'CLEAR_NEW_PARTY'})
     } 
     catch (error){
         alert('something went wrong');

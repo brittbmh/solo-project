@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class NewEventDetails extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             title: "Bee's Party",
@@ -28,8 +28,9 @@ class NewEventDetails extends Component {
     setDetails = (event) => {
         event.preventDefault();
         this.props.dispatch({ type: 'SET_NEW_PARTY_DETAILS', payload: this.state });
-        this.props.dispatch({type: 'CREATE_NEW_EVENT', payload: this.props.newParty})
-        // this.props.history.push('/NewEvent/Guests')
+        this.props.dispatch({ type: 'CREATE_NEW_EVENT', payload: this.props.newParty });
+        alert('New party created')
+        this.props.history.push('/NewEvent/Guests');
     }
 
     render() {

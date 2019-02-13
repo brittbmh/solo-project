@@ -53,11 +53,13 @@ router.post('/new', (req, res) => {
                     await client.query(queryText, [eventId, option]);
                 }
                 await client.query('COMMIT');
-                res.sendStatus(201);
+                res.send({eventId});
             }catch(error){
                 console.log('Rollback', error);
                 await client.query('ROLLBACK');
                 throw error;
+            }finally {
+                client.release();
             }
         })().catch((error) => {
             console.log('CATCH', error);
