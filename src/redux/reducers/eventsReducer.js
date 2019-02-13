@@ -23,11 +23,12 @@ const defaultParty = {
     partyType: '9',
     partyOptions: ["Note", "Name(s)"],
     partyDetails: {
-        Date: "2/11/19",
-        Description: "PARTY!!",
-        EndTime: "5:30",
-        Location: "My House",
-        StartTime: "4:30"
+        title: "Bee's Party",
+        date: "2/11/19",
+        description: "PARTY!!",
+        endTime: "5:30",
+        location: "My House",
+        startTime: "4:30"
     }
 }
 

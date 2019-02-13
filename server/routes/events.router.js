@@ -30,11 +30,21 @@ router.get('/options/:id', (req, res) => {
     })
 });
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
 
+router.post('/new', (req, res) => {
+    const party = req.body;
+    const partyDetails = req.body.partyDetails;
+    const host = req.user.id;
+    console.log(req.body);
+    const queryText = `INSERT INTO "Events" ("title", "location", "description", "party_type_id", "date", "time_start", "end_time", "host") 
+                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id";`;
+    pool.query(queryText, [partyDetails.title, partyDetails.location, partyDetails.description, party.partyType, partyDetails.date, partyDetails.startTime, partyDetails.endTime, host])
+    .then((response) => {
+        res.sendStatus(201);
+    }).catch((error) => {
+        res.sendStatus(500);
+        console.log(error);
+    })
 });
 
 module.exports = router;
