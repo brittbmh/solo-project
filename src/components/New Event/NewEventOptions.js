@@ -30,6 +30,13 @@ class NewEventOptions extends Component {
 
     setOptions = (event) => {
         event.preventDefault();
+        const trueState = [];
+        for (let key in this.state){
+            if (this.state[key] === true){
+                trueState.push(key);
+            }
+        }
+        console.log(trueState);
         this.props.dispatch({type: 'SET_NEW_PARTY_OPTIONS', payload: trueState })
     }
 

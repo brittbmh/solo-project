@@ -21,7 +21,7 @@ const setPartyOptions = (state = [], action) => {
 
 const defaultParty = {
     partyType: '9',
-    partyOptions: ''
+    partyOptions: ["Note", "Name(s)"],
 }
 
 const setNewParty = (state = defaultParty, action)  => {
