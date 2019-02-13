@@ -22,7 +22,7 @@ class NewEventDetails extends Component {
     setDetails = (event) => {
         event.preventDefault();
         this.props.dispatch({ type: 'SET_NEW_PARTY_DETAILS', payload: this.state });
-        // this.props.history.push('/NewEvent/Guests')
+        this.props.history.push('/NewEvent/Guests')
     }
 
     render() {
@@ -35,7 +35,7 @@ class NewEventDetails extends Component {
                     <input name="EndTime" placeholder="End Time" onChange={this.handleChange} />
                     <input name="Description" placeholder="Description" onChange={this.handleChange} />
                     <input name="Location" placeholder="Location" onChange={this.handleChange} />
-                    <button type="submit">Submit</button>
+                    <button type="submit">Create Event</button>
                 </form>
                 {JSON.stringify(this.state)}
             </div>
