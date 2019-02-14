@@ -21,6 +21,7 @@ const setPartyOptions = (state = [], action) => {
 
 const defaultEvent ={
     eventId: 12,
+    name: "Bee's Party"
 }
 
 const currentEvent = (state = defaultEvent, action) => {
@@ -28,8 +29,9 @@ const currentEvent = (state = defaultEvent, action) => {
         case 'SET_EVENT_ID':
             return {...state, eventId: action.payload.eventId};
         case 'SET_EVENT_NAME':
-        console.log(action.payload);
-            return {...state, name: action.payload[0].title}
+            return {...state, name: action.payload[0].title};
+        case 'CLEAR_CURRENT_EVENT':
+            return defaultEvent;
         default:
             return state;
     }

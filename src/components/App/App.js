@@ -16,7 +16,8 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-import NewEvent from '../New Event/NewEvent'
+import NewEvent from '../New Event/NewEvent';
+import HostPage from '../HostPage/HostPage';
 
 import './App.css';
 
@@ -56,7 +57,12 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
-            <Route
+            <ProtectedRoute
+              exact
+              path="/hostpage"
+              component={HostPage}
+            />
+            <ProtectedRoute
               
               path="/NewEvent"
               component={NewEvent}
