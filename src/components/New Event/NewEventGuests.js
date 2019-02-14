@@ -5,8 +5,8 @@ class NewEventGuests extends Component {
     constructor(props){
         super(props);
         this.state = {
-            guest: '',
-            email: ''
+            guest: 'Sam',
+            email: 'sam@gmailx.com'
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -30,11 +30,9 @@ class NewEventGuests extends Component {
 
     addGuest = (event) => {
         event.preventDefault();
-        this.props.dispatch({type: 'ADD_GUEST', payload: this.state })
-        this.setState = {
-            guest: '',
-            email: ''
-        }
+        this.props.dispatch({type:'MATCH_GUEST', payload: this.state})
+        // this.props.dispatch({type: 'ADD_GUEST', payload: this.state })
+        
     }
 
     guestDetails = () => {
@@ -43,6 +41,14 @@ class NewEventGuests extends Component {
                 return (<tr key={i}><td>{guest.guest}</td><td>{guest.email}</td></tr>);
             })
         )
+    }
+
+    submitGuests = () => {
+        const payload = {
+            eventId: this.props.currentEvent.eventId,
+            guestList: this.props.guestList
+        }
+        this.props.dispatch({type: 'POST_GUEST_LIST', payload: payload});
     }
 
     render() {

@@ -44,6 +44,26 @@ router.get('/options/:id', (req, res) => {
     })
 });
 
+router.get('/user/:email', (req, res) => {
+    console.log('in user get', req.params);
+    const queryText = `SELECT "id" FROM "Person" WHERE "email" = $1;`;
+    pool.query(queryText, [req.params.email]).then((result) => {
+        console.log(result);
+        
+        res.send(result.rows);
+    }).catch((error) => {
+        res.sendStatus(500);
+        console.log(error);
+    })
+})
+
+// router.post('/guests', (req, res) => {
+//     console.log(req.body);
+//     const eventId = req.body.eventId;
+//     const guestList = req.body.guestList;
+//     const queryText = `INSERT INTO `
+// })
+
 
 router.post('/new', (req, res) => {
     if(req.isAuthenticated()){

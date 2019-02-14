@@ -23,6 +23,16 @@ function* createNewParty(action) {
     }
 }
 
+function* postGuests(action) {
+    try{
+        yield axios.post('api/events/guests', action.payload);
+        yield put({type: 'CLEAR_GUESTS'})
+    } catch (error) {
+        alert('something went wrong');
+        yield console.log('error in postGuests', error);
+    }
+}
+
 function* fetchPartyOptions(action) {
     try {
         console.log(action.payload);
@@ -46,12 +56,30 @@ function* fetchEventName(action) {
     }
 }
 
+function* matchGuest(action) {
+    try {
+        console.log(action.payload);
+        const newGuest = action.payload;
+        const email = action.payload.email;
+        const guest = yield axios.get(`api/events/user/${email}`);
+        console.log(guest);
+        newGuest.id = guest.data[0].id;
+        console.log(newGuest);
+        
+        // yield put({type: })
+    } catch (error) {
+        yield console.log('error in matchGuest', error);
+    }
+}
+
 
 function* eventSaga() {
     yield takeEvery('GET_PARTY_TYPES', fetchPartyTypes);
     yield takeEvery('GET_PARTY_OPTIONS', fetchPartyOptions);
     yield takeEvery('CREATE_NEW_EVENT', createNewParty);
-    yield takeEvery('GET_CURRENT_PARTY', fetchEventName)
+    yield takeEvery('GET_CURRENT_PARTY', fetchEventName);
+    yield takeEvery('MATCH_GUEST', matchGuest);
+    yield takeEvery('POST_GUEST_LIST', postGuests);
 }
 
 export default eventSaga;
