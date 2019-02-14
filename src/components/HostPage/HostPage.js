@@ -21,12 +21,15 @@ class HostPage extends Component {
         const event = this.props.currentEvent;
         return (
             <div>
-                {JSON.stringify(this.props.currentEvent)}
+                {/* {JSON.stringify(this.props.currentEvent)} */}
                 <h3>{event.title}</h3>
                 <p>Date: {event.date}</p>
                 <p>Time: {event.time_start} - {event.end_time}</p>
                 <p>{event.description}</p>
                 <h5>Location: {event.location}</h5>
+                <br />
+                <h4>Guest List</h4>
+                <p>(will display guest list with response)</p>
             </div>
         )
     }

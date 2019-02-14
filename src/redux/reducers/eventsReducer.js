@@ -59,8 +59,8 @@ const defaultParty = {
         title: "Bee's Party",
         date: "2/11/19",
         description: "PARTY!!",
-        endTime: "5:30",
-        location: "My House",
+        endTime: "6:30",
+        location: "Bee's House",
         startTime: "4:30"
     }
 }

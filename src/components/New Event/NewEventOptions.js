@@ -46,7 +46,6 @@ class NewEventOptions extends Component {
             this.props.partyOptions.map((option, i) => {
                 const desc = option.description
                 return (<label key={i}>
-                    
                         <input
                         name={option.id}
                         type="checkbox"
@@ -70,6 +69,7 @@ class NewEventOptions extends Component {
 
                
                 {JSON.stringify(this.props.newParty)}
+                <br/>
                 {JSON.stringify(this.props.partyOptions)}
             </div>
         )

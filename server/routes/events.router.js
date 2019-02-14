@@ -33,11 +33,11 @@ router.get('/options/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const queryText = `SELECT "Info_Fields".* FROM "Party_Types_Info_Fields" 
                         JOIN "Info_Fields" ON "Party_Types_Info_Fields"."info_field_id" = "Info_Fields"."id" 
-                        WHERE "party_type_id" = $1`;
+                        WHERE "party_type_id" = $1;`;
     pool.query(queryText, [id]).then((result) => {
         console.log(result.rows);
 
-        res.send(result.rows[0].title);
+        res.send(result.rows);
     }).catch((error) => {
         res.sendStatus(500);
         console.log(error);
