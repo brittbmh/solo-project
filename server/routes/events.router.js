@@ -16,7 +16,7 @@ router.get('/types', (req, res) => {
 
 router.get('/name/:id', (req, res) => {
     console.log('in GET name');
-    
+
     const id = parseInt(req.params.id);
     const queryText = `SELECT "title" FROM "Events" WHERE "id" = $1;`;
     pool.query(queryText, [id]).then((result) => {
@@ -36,7 +36,7 @@ router.get('/options/:id', (req, res) => {
                         WHERE "party_type_id" = $1`;
     pool.query(queryText, [id]).then((result) => {
         console.log(result.rows);
-        
+
         res.send(result.rows[0].title);
     }).catch((error) => {
         res.sendStatus(500);
@@ -56,26 +56,41 @@ router.get('/user/:email', (req, res) => {
 })
 
 router.post('/guests', (req, res) => {
-    console.log(req.body);
-    const eventId = req.body.eventId;
-    const guestList = req.body.guestList[0];
-    console.log(guestList);
-    
-    const queryText = `INSERT INTO "RSVP" ("guest_id", "event_id") VALUES ($1, $2);`;
-    pool.query(queryText, [guestList.id, eventId]).then((response) => {
-        res.sendStatus(201);
-    }).catch((error) => {
+    if (req.isAuthenticated()) {
+        (async () => {
+            const client = await pool.connect();
+            try {
+                await client.query('BEGIN');
+                const eventId = req.body.eventId;
+                const guestList = req.body.guestList;
+                for (guest of guestList){
+                    let queryText = `INSERT INTO "RSVP" ("guest_id", "event_id") VALUES ($1, $2);`;
+                    pool.query(queryText, [guest.id, eventId])
+                }
+                await client.query('COMMIT');
+                res.sendStatus(201);
+            } catch (error) {
+                console.log('Rollback', error);
+                await client.query('ROLLBACK');
+                throw error;
+            } finally {
+                client.release();
+            }
+    })().catch((error) => {
         res.sendStatus(500);
         console.log(error);
-    })
+    });
+    } else {
+        res.sendStatus(403);
+    }
 })
 
 
 router.post('/new', (req, res) => {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         (async () => {
             const client = await pool.connect();
-            try{
+            try {
                 await client.query('BEGIN');
                 let queryText = `INSERT INTO "Events" ("title", "location", "description", "party_type_id", "date", "time_start", "end_time", "host") 
                         VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id";`;
@@ -83,29 +98,29 @@ router.post('/new', (req, res) => {
                 const party = req.body;
                 const partyDetails = req.body.partyDetails;
                 const values = [partyDetails.title, partyDetails.location, partyDetails.description, party.partyType, partyDetails.date, partyDetails.startTime, partyDetails.endTime, host];
-                
+
                 const eventResult = await client.query(queryText, values);
                 const eventId = eventResult.rows[0].id;
-                
+
                 const partyOptions = req.body.partyOptions;
-                for (let option of partyOptions){
+                for (let option of partyOptions) {
                     queryText = `INSERT INTO "Event_Info_Fields" ("event_id", "info_field_id") VALUES ($1, $2);`;
                     await client.query(queryText, [eventId, option]);
                 }
                 await client.query('COMMIT');
-                res.send({eventId});
-            }catch(error){
+                res.send({ eventId });
+            } catch (error) {
                 console.log('Rollback', error);
                 await client.query('ROLLBACK');
                 throw error;
-            }finally {
+            } finally {
                 client.release();
             }
         })().catch((error) => {
             console.log('CATCH', error);
             res.sendStatus(500);
         });
-    }else{
+    } else {
         res.sendStatus(403);
     }
 });

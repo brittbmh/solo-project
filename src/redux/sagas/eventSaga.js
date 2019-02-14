@@ -56,6 +56,7 @@ function* fetchEventName(action) {
     }
 }
 
+//match new guest against database and pull user id
 function* matchGuest(action) {
     try {
         console.log(action.payload);
@@ -65,6 +66,7 @@ function* matchGuest(action) {
         console.log(guest);
         newGuest.id = guest.data[0].id;
         console.log(newGuest);
+        //send new guest with id to reducer
         yield put({type: 'ADD_GUEST', payload: newGuest})
     } catch (error) {
         yield console.log('error in matchGuest', error);
