@@ -30,6 +30,8 @@ const currentEvent = (state = defaultEvent, action) => {
             return {...state, eventId: action.payload.eventId};
         case 'SET_EVENT_NAME':
             return {...state, name: action.payload[0].title};
+        case 'HOLD_CURRENT':
+            return action.payload;
         case 'CLEAR_CURRENT_EVENT':
             return defaultEvent;
         default:

@@ -18,8 +18,16 @@ class HostPage extends Component {
     }
 
     render() {
+        const event = this.props.currentEvent;
         return (
-            <div></div>
+            <div>
+                {JSON.stringify(this.props.currentEvent)}
+                <h3>{event.title}</h3>
+                <p>Date: {event.date}</p>
+                <p>Time: {event.time_start} - {event.end_time}</p>
+                <p>{event.description}</p>
+                <h5>Location: {event.location}</h5>
+            </div>
         )
     }
 }

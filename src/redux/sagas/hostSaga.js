@@ -7,7 +7,7 @@ function* fetchPartyDetails(action) {
         
         const details = yield axios.get(`/api/host/${action.payload}`);
         console.log(details.data);
-        
+        yield put({type:'HOLD_CURRENT', payload: details.data[0]})
     } catch (error) {
         yield console.log('error in matchGuest', error);
     }
