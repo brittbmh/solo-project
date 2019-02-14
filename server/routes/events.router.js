@@ -48,8 +48,6 @@ router.get('/user/:email', (req, res) => {
     console.log('in user get', req.params);
     const queryText = `SELECT "id" FROM "Person" WHERE "email" = $1;`;
     pool.query(queryText, [req.params.email]).then((result) => {
-        console.log(result);
-        
         res.send(result.rows);
     }).catch((error) => {
         res.sendStatus(500);
@@ -57,12 +55,20 @@ router.get('/user/:email', (req, res) => {
     })
 })
 
-// router.post('/guests', (req, res) => {
-//     console.log(req.body);
-//     const eventId = req.body.eventId;
-//     const guestList = req.body.guestList;
-//     const queryText = `INSERT INTO `
-// })
+router.post('/guests', (req, res) => {
+    console.log(req.body);
+    const eventId = req.body.eventId;
+    const guestList = req.body.guestList[0];
+    console.log(guestList);
+    
+    const queryText = `INSERT INTO "RSVP" ("guest_id", "event_id") VALUES ($1, $2);`;
+    pool.query(queryText, [guestList.id, eventId]).then((response) => {
+        res.sendStatus(201);
+    }).catch((error) => {
+        res.sendStatus(500);
+        console.log(error);
+    })
+})
 
 
 router.post('/new', (req, res) => {

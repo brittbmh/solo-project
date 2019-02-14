@@ -65,7 +65,6 @@ function* matchGuest(action) {
         console.log(guest);
         newGuest.id = guest.data[0].id;
         console.log(newGuest);
-        
         yield put({type: 'ADD_GUEST', payload: newGuest})
     } catch (error) {
         yield console.log('error in matchGuest', error);

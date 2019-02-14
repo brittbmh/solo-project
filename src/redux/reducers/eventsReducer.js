@@ -35,7 +35,7 @@ const currentEvent = (state = defaultEvent, action) => {
             return state;
     }
 }
-const defaultGuest = [{guest: 'Sam', email: 'sam@gmailx.com'}];
+const defaultGuest = [{guest: 'Sam', email: 'sam@gmailx.com', id: 2}];
 
 const guestList = (state = defaultGuest, action ) => {
     switch (action.type) {
