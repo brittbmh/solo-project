@@ -18,6 +18,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import NewEvent from '../New Event/NewEvent';
 import HostPage from '../HostPage/HostPage';
+import GuestPage from '../GuestPage/GuestPage';
 import EditDetails from '../EditDetails/EditDetails';
 
 import './App.css';
@@ -62,6 +63,11 @@ class App extends Component {
               exact
               path="/hostpage"
               component={HostPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/guestpage"
+              component={GuestPage}
             />
             <ProtectedRoute
               exact

@@ -24,10 +24,6 @@ class HostPage extends Component {
         this.props.dispatch({ type: 'GET_INFO_FIELDS', payload: this.props.currentEvent.eventId })
     }
 
-    
-        
-    
-
     editPage = () => {
         this.props.history.push('/editDetails');
     }
@@ -39,7 +35,6 @@ class HostPage extends Component {
             })
         )
     }
-
 
     render() {
         const event = this.props.currentEvent;
