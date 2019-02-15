@@ -33,13 +33,12 @@ class GuestPage extends Component {
     }
 
     makeInputs = () => {
-        if (this.state.yes == true){
+        if (this.state.yes === true){
         return (
             this.props.infoFields.map((info, i) => {
-                return(<input placeholder={info.description}></input>)
-            })
-        )
-    }
+                return(<input key={i} placeholder={info.description}></input>)
+            })        
+        )}
     }
 
     render() {
@@ -71,7 +70,6 @@ class GuestPage extends Component {
                         onChange={this.handleChange} />
                     Sorry I can't make it
                 </label>
-                {JSON.stringify(this.state)}
                 <br />
                 {this.makeInputs()}
                 <br />
