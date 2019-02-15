@@ -17,17 +17,13 @@ class HostPage extends Component {
     }
 
     componentDidMount(){
-        this.getCurrentEvent();
-        this.getGuestList();
+        this.props.dispatch({ type: 'GET_PARTY_DETAILS', payload: this.props.currentEvent.eventId });
+        this.props.dispatch({ type: 'GET_GUEST_LIST', payload: this.props.currentEvent.eventId });
+        this.props.dispatch({ type: 'GET_INFO_FIELDS', payload: this.props.currentEvent.eventId})
     }
 
-    getCurrentEvent = () => {
-        this.props.dispatch({type: 'GET_PARTY_DETAILS', payload: this.props.currentEvent.eventId})
-    }
 
-    getGuestList = () => {
-        this.props.dispatch({ type: 'GET_GUEST_LIST', payload: this.props.currentEvent.eventId})
-    }
+    
 
     editPage = () => {
         this.props.history.push('/editDetails');
@@ -36,6 +32,7 @@ class HostPage extends Component {
     tableDetails = () => {
 
     }
+
 
     render() {
         const event = this.props.currentEvent;
@@ -47,10 +44,12 @@ class HostPage extends Component {
                 <p>Time: {event.time_start} - {event.end_time}</p>
                 <p>{event.description}</p>
                 <h5>Location: {event.location}</h5>
+                {JSON.stringify(this.props.infoFields)}
                 <button onClick={this.editPage}>Edit Details</button>
                 <br />
                 <h4>Guest List</h4>
                 <p>(will display guest list with response)</p>
+                {JSON.stringify(this.props.guestList)}
                 <Paper>
                 <Table>
                     <TableHead>
@@ -58,7 +57,9 @@ class HostPage extends Component {
                             <TableCell>Name</TableCell>
                             <TableCell>Email</TableCell>
                             <TableCell>Attending</TableCell>
-                            <TableCell>Response</TableCell>
+                                {this.props.infoFields.map((field, i) => {
+                                    return (<TableCell key={i}>{field.description}</TableCell>);
+                                })}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -66,6 +67,7 @@ class HostPage extends Component {
                     </TableBody>
                 </Table>
                 </Paper>
+                
             </div>
         )
     }
@@ -73,6 +75,8 @@ class HostPage extends Component {
 
 const mapReduxStoreToProps = (reduxStore) => ({
     currentEvent: reduxStore.events.currentEvent,
+    guestList: reduxStore.host.setGuestList,
+    infoFields: reduxStore.host.setInfoFields,
 })
 
 export default connect(mapReduxStoreToProps)(HostPage);
