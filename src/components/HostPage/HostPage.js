@@ -17,6 +17,10 @@ class HostPage extends Component {
         this.props.dispatch({type: 'GET_PARTY_DETAILS', payload: this.props.currentEvent.eventId})
     }
 
+    editPage = () => {
+        this.props.history.push('/editDetails');
+    }
+
     render() {
         const event = this.props.currentEvent;
         return (
@@ -27,6 +31,7 @@ class HostPage extends Component {
                 <p>Time: {event.time_start} - {event.end_time}</p>
                 <p>{event.description}</p>
                 <h5>Location: {event.location}</h5>
+                <button onClick={this.editPage}>Edit Details</button>
                 <br />
                 <h4>Guest List</h4>
                 <p>(will display guest list with response)</p>
