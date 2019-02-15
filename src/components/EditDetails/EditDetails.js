@@ -25,12 +25,16 @@ class EditDetails extends Component {
         })
     }
 
+    updateDetails = () => {
+        
+    }
+
     render(){
         const event = this.props.currentEvent;
         return(
             <div>
                 <h3>{event.title}</h3>
-                <form onSubmit={this.setDetails}>
+                <form onSubmit={this.updateDetails}>
                     <input name="title" placeholder="Name of Event" onChange={this.handleChange} />
                     <input name="date" placeholder="Date" onChange={this.handleChange} />
                     <input name="startTime" placeholder="Start Time" onChange={this.handleChange} />
@@ -39,8 +43,6 @@ class EditDetails extends Component {
                     <input name="location" placeholder="Location" onChange={this.handleChange} />
                     <button type="submit">Update Event</button>
                 </form>
-
-
 
 
             </div>
