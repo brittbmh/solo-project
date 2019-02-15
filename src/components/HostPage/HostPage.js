@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HostTableItems from './HostTableItems';
+import moment from 'moment';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -23,6 +24,10 @@ class HostPage extends Component {
         this.props.dispatch({ type: 'GET_INFO_FIELDS', payload: this.props.currentEvent.eventId })
     }
 
+    
+        
+    
+
     editPage = () => {
         this.props.history.push('/editDetails');
     }
@@ -38,10 +43,12 @@ class HostPage extends Component {
 
     render() {
         const event = this.props.currentEvent;
+        
         return (
             <div>
+                {event.length} 
                 <h3>{event.title}</h3>
-                <p>Date: {event.date}</p>
+                <p>Date: {moment(event.date).format('MM/DD/YYYY')}</p>
                 <p>Time: {event.time_start} - {event.end_time}</p>
                 <p>{event.description}</p>
                 <h5>Location: {event.location}</h5>
