@@ -5,6 +5,7 @@ class GuestPageRSVP extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            
             attending: '',
         };
         this.handleChange = this.handleChange.bind(this);
@@ -13,7 +14,6 @@ class GuestPageRSVP extends Component {
 
     handleChange(event) {
         const target = event.target;
-
         this.setState({
             attending : target.value
         })
@@ -42,7 +42,10 @@ class GuestPageRSVP extends Component {
     }
 
     sendRSVP = () => {
-            this.props.dispatch({type: 'SEND_RSVP', payload: this.state})
+            const RSVP = {
+             eventId: this.props.eventId, response: this.state 
+            }
+            this.props.dispatch({type: 'SEND_RSVP', payload: RSVP})
     }
 
     render() {

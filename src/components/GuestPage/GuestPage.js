@@ -23,8 +23,9 @@ class GuestPage extends Component {
                 <p>Time: {event.time_start} - {event.end_time}</p>
                 <p>{event.description}</p>
                 <h5>Location: {event.location}</h5>
+                {JSON.stringify(event)}
                 <br />
-                <GuestPageRSVP infoFields={this.props.infoFields}/>
+                <GuestPageRSVP eventId={event.id} infoFields={this.props.infoFields}/>
             </div>
         )
     }
