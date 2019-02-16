@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
 router.get('/info/:id', (req, res) => {
     console.log('In /host/info GET');
     const id = req.params.id;
-    const queryText = `SELECT "Info_Fields"."description" FROM "Event_Info_Fields" 
+    const queryText = `SELECT "Info_Fields"."description", "Info_Fields"."id" FROM "Event_Info_Fields" 
                         JOIN "Info_Fields" ON "Info_Fields"."id" = "Event_Info_Fields"."info_field_id" 
                         WHERE "event_id" = $1;`;
     pool.query(queryText, [id]).then((result) => {
