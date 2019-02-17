@@ -17,19 +17,6 @@ class GuestPageViewItems extends Component {
     componentDidMount() {
     }
 
-    isAttending = () => {
-        let attendance;
-        if (this.props.guestInfo.attending === null) {
-            attendance = "Not Yet Responded"
-        } else if (this.props.guestInfo.attending === true) {
-            attendance = 'Yes';
-        } else if (this.props.guestInfo.attending === false) {
-            attendance = 'No';
-        }
-        console.log(attendance);
-        
-        return attendance;
-    }
 
     render() {
         let attendance;
@@ -43,12 +30,9 @@ class GuestPageViewItems extends Component {
 
 
         return (
-            <TableRow>
-                {this.props.guestName &&
-                <TableCell>{this.props.guestName.first_name} {this.props.guestName.last_name}</TableCell>}
-                <TableCell>{attendance}</TableCell>
+            <TableCell>
                 {this.loadResponses()}
-            </TableRow>
+            </TableCell>
 
 
         )

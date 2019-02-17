@@ -14,7 +14,7 @@ function* postRSVP(action) {
 function* fetchGuestName(){
     try{
         const guest = yield axios.get('/api/guest/name');
-        yield put({type: 'SET_GUEST_NAME', payload: guest.data})
+        yield put({type: 'SET_GUEST_NAME', payload: guest.data[0]})
     } catch (error) {
         alert('something went wrong');
         yield console.log('error in fetchGuestName', error);
