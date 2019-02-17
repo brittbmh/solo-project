@@ -35,7 +35,8 @@ class GuestPage extends Component {
                         eventId={event.id} infoFields={this.props.infoFields} />}
                     />
                     <Route path='/guestpage/view' 
-                        render={(props) => <GuestPageView {...props}/>}
+                        render={(props) => <GuestPageView {...props}
+                            eventId={event.id} infoFields={this.props.infoFields}/>}
                     />
                 </Switch>
             </div>

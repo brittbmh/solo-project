@@ -47,7 +47,7 @@ class GuestPageRSVP extends Component {
         this.props.infoFields.map((info) => {
             let id = info.id
             let idString = id.toString();
-            response.push({id: [id], reply: this.state[idString]});
+            response.push({id: [id], reply: this.state[idString], desc: info.description});
             return response;
         })
         const RSVP = {
