@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 class GuestPageRSVP extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            
+
             attending: '',
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleResponse= this.handleResponse.bind(this);
+        this.handleResponse = this.handleResponse.bind(this);
     }
 
     handleChange(event) {
         const target = event.target;
         this.setState({
-            attending : target.value
+            attending: target.value
         })
     }
 
@@ -23,14 +24,14 @@ class GuestPageRSVP extends Component {
         const target = event.target;
         const name = target.name;
         console.log(target.value);
-        
+
         this.setState({
             [name]: target.value
         })
     }
 
     makeInputs = () => {
-        if (this.state.attending === 'yes') {
+        if (this.state.attending === 'true') {
             return (
                 this.props.infoFields.map((info, i) => {
                     return (<label>{info.description}<input key={i} name={info.id} onChange={this.handleResponse} placeholder={info.description}></input>
@@ -42,10 +43,22 @@ class GuestPageRSVP extends Component {
     }
 
     sendRSVP = () => {
-            const RSVP = {
-             eventId: this.props.eventId, response: this.state 
-            }
-            this.props.dispatch({type: 'SEND_RSVP', payload: RSVP})
+        const response = [];
+        this.props.infoFields.map((info) => {
+            let id = info.id
+            let idString = id.toString();
+            console.log(this.state[idString]);
+            
+            response.push({[id]: this.state[idString]});
+            return response;
+        })
+        const RSVP = {
+            eventId: this.props.eventId,
+            attending: this.state.attending,
+            response: response,
+        }
+        
+        this.props.dispatch({ type: 'SEND_RSVP', payload: RSVP })
     }
 
     render() {
@@ -56,8 +69,8 @@ class GuestPageRSVP extends Component {
                     <input
                         name="attending"
                         type="radio"
-                        value="yes"
-                        checked={this.state.attending === 'yes'}
+                        value="true"
+                        checked={this.state.attending === 'true'}
                         onChange={this.handleChange} />
                     Yes, count me in
                 </label>
@@ -65,19 +78,19 @@ class GuestPageRSVP extends Component {
                     <input
                         name="attending"
                         type="radio"
-                        value="no"
-                        checked={this.state.attending === 'no'}
+                        value="false"
+                        checked={this.state.attending === 'false'}
                         onChange={this.handleChange} />
                     Sorry, I can't make it
                 </label>
                 <br />
                 {this.makeInputs()}
                 <br />
-                <button onClick={this.props.sendRSVP}>Submit</button>
+                <button onClick={this.sendRSVP}>Submit</button>
                 {JSON.stringify(this.state)}
             </div>
         )
     }
 }
 
-export default GuestPageRSVP;
+export default connect()(GuestPageRSVP);
