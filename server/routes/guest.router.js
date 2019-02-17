@@ -2,9 +2,11 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-router.post('/new', (req, res) => {
+router.post('/', (req, res) => {
     if (req.isAuthenticated()) {
         (async () => {
+            console.log('in /guest post');
+            
             const client = await pool.connect();
             try {
                 await client.query('BEGIN');
@@ -17,11 +19,12 @@ router.post('/new', (req, res) => {
 
                 const result = await client.query(queryText, values);
                 const RSVPId = result.rows[0].id;
-
+                console.log(RSVPId);
                 
-                for (let option of partyOptions) {
-                    queryText = `INSERT INTO "Event_Info_Fields" ("event_id", "info_field_id") VALUES ($1, $2);`;
-                    await client.query(queryText, [eventId, option]);
+
+                for (let answer of response) {
+                    queryText = `INSERT INTO "RSVP_Info_Fields" ("rsvp_id", "info_id", "response") VALUES ($1, $2, $3);`;
+                    await client.query(queryText, [RSVPId, parseInt(answer.id), answer.reply]);
                 }
                 await client.query('COMMIT');
                 res.send({ eventId });

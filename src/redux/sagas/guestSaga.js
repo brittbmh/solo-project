@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
-function* postRSVP() {
+function* postRSVP(action) {
     try{
-        yield axios.post('api/guests', action.payload)
+        yield axios.post('/api/guest', action.payload)
         yield put({type: 'SET_GUEST_INFO', payload: action.payload})
     } catch (error) {
         alert('something went wrong');
