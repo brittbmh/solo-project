@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import GuestPageViewItems from './GuestPageViewItems';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,12 +9,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 class GuestPageView extends Component {
-    
 
     tableDetails = () => {
         return (
             this.props.guestInfo.response.map((item, i) => {
-                return (<GuestPageViewItems guestInfo={this.props.guestInfo} key={i} item={item} />)
+                return (<TableCell key={i}>{item.reply}</TableCell>)
             })
         )
     }
@@ -32,10 +30,9 @@ class GuestPageView extends Component {
 
         return (
             <div>
-
                 <br />
                 {JSON.stringify(this.props.guestInfo)}
-                {JSON.stringify(this.props.infoFields)}
+                <h5>Your Response</h5>
                 <Paper>
                     <Table>
                         <TableHead>
