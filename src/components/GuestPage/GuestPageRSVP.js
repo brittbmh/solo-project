@@ -39,7 +39,7 @@ class GuestPageRSVP extends Component {
                     )
                 })
             )
-        }
+        } 
     }
 
     sendRSVP = () => {
@@ -57,6 +57,7 @@ class GuestPageRSVP extends Component {
         }
         
         this.props.dispatch({ type: 'SEND_RSVP', payload: RSVP })
+        this.props.history.push('/guestpage/view')
     }
 
     render() {

@@ -4,6 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import events from './eventsReducer';
 import host from './hostReducer';
+import guest from './guestReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -12,6 +13,7 @@ import host from './hostReducer';
 // Lets make a bigger object for our store, with the objects from our reducers.
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
+  guest,
   events,
   host,
   errors, // contains registrationMessage and loginMessage

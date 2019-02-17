@@ -1,16 +1,19 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
+
+import { Switch, Route } from 'react-router-dom';
 import GuestPageRSVP from './GuestPageRSVP';
+import GuestPageView from './GuestPageView';
 
 class GuestPage extends Component {
-    
+
 
     componentDidMount() {
         this.props.dispatch({ type: 'GET_PARTY_DETAILS', payload: this.props.currentEvent.eventId });
         this.props.dispatch({ type: 'GET_GUEST_LIST', payload: this.props.currentEvent.eventId });
         this.props.dispatch({ type: 'GET_INFO_FIELDS', payload: this.props.currentEvent.eventId })
-    }    
+    }
 
     render() {
         const event = this.props.currentEvent;
@@ -25,7 +28,16 @@ class GuestPage extends Component {
                 <h5>Location: {event.location}</h5>
                 {JSON.stringify(event)}
                 <br />
-                <GuestPageRSVP eventId={event.id} infoFields={this.props.infoFields}/>
+                <Switch>
+                    <Route
+                        path='/guestpage/RSVP' 
+                        render={(props) => <GuestPageRSVP {...props}
+                        eventId={event.id} infoFields={this.props.infoFields} />}
+                    />
+                    <Route path='/guestpage/view' 
+                        render={(props) => <GuestPageView {...props}/>}
+                    />
+                </Switch>
             </div>
         )
     }

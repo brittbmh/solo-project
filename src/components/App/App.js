@@ -65,7 +65,7 @@ class App extends Component {
               component={HostPage}
             />
             <ProtectedRoute
-              exact
+              
               path="/guestpage"
               component={GuestPage}
             />
