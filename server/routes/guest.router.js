@@ -2,6 +2,19 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+router.get('/name', (req, res) => {
+    const queryText = `SELECT "first_name", "last_name" FROM "Person" WHERE "id" = $1; `
+    const guest = req.user.id;
+    pool.query(queryText, [guest]).then((result) => {
+        console.log(result.rows);
+
+        res.send(result.rows);
+    }).catch((error) => {
+        res.sendStatus(500);
+        console.log(error);
+    })
+})
+
 router.post('/', (req, res) => {
     if (req.isAuthenticated()) {
         (async () => {

@@ -11,8 +11,19 @@ function* postRSVP(action) {
     }
 }
 
+function* fetchGuestName(){
+    try{
+        const guest = yield axios.get('/api/guest/name');
+        yield put({type: 'SET_GUEST_NAME', payload: guest.data})
+    } catch (error) {
+        alert('something went wrong');
+        yield console.log('error in fetchGuestName', error);
+    }
+}
+
 function* guestSaga() {
-    yield takeEvery('SEND_RSVP', postRSVP)
+    yield takeEvery('SEND_RSVP', postRSVP);
+    yield takeEvery('GET_GUEST_NAME', fetchGuestName)
 }
 
 export default guestSaga;
