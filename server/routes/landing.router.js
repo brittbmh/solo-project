@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
             try {
                 await client.query('BEGIN');
                 const guest = req.user.id;
-                let queryText = `SELECT "event_id" FROM "RSVP" WHERE "guest_id" = $1;`;
+                let queryText = `SELECT "event_id", "attending" FROM "RSVP" WHERE "guest_id" = $1;`;
                 const eventList = await client.query(queryText, [guest]);
                 const events = eventList.rows;
                 console.log(events);
@@ -19,8 +19,10 @@ router.get('/', (req, res) => {
                     queryText = `SELECT "Events"."title", "Events"."id" AS "event_id", "Events"."date", "Person"."first_name", "Person"."last_name" 
                                 FROM "Events" JOIN "Person" ON "Events"."host" = "Person"."id" WHERE "Events"."id" = $1;`
                     const secondPull = await client.query(queryText, [event.event_id]);
-                    console.log(secondPull.rows);
-                    answer.push(secondPull.rows);  
+                    let result = secondPull.rows[0];
+                    console.log(result);
+                    result.attending = event.attending;
+                    answer.push(result);  
                 }
                 await client.query('COMMIT');
                 res.send(answer);

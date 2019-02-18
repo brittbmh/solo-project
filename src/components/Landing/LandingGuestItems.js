@@ -16,10 +16,25 @@ class LandingGuestItems extends Component {
         console.log(this.props.event);
         const event = { eventId: this.props.event.event_id };
         this.props.dispatch({ type: 'SET_EVENT_ID', payload: event });
-        this.props.moveToEvent('/guestpage');
+        let attendance;
+        if (this.props.event.attending === null){
+            attendance = '/RSVP';
+        } else {
+            attendance = '/view';
+        }
+        this.props.moveToEvent(`/guestpage${attendance}`);
     }
 
     render() {
+        let attending;
+        if (this.props.event.attending === null){
+            attending = 'You have not responded';
+        }else if (this.props.event.attending === true){
+            attending = 'You are attending';
+        } else if (this.props.event.attending === false){
+            attending = 'You are not attending';
+        }
+
         return (
             <div>
                 <Grid item md={2}>
@@ -28,6 +43,7 @@ class LandingGuestItems extends Component {
                             <Typography>{this.props.event.title}</Typography>
                             <Typography>{moment(this.props.event.date).format('MM/DD/YYYY')}</Typography>
                             <Typography>Host: {this.props.event.first_name} {this.props.event.last_name}</Typography>
+                            <Typography>{attending}</Typography>
                             <CardActions>
                                 <Button onClick={this.moveToGuest} size="small">Event Page</Button>
                             </CardActions>
