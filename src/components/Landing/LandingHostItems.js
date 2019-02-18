@@ -22,6 +22,15 @@ class LandingHostItems extends Component {
     }
 
     render() {
+        console.log(this.props.event);
+        
+        if (this.props.event.length === 0){
+            return (
+                <div>
+                    <p>You are not hosting any events.</p>
+                </div>
+            )
+        } else {
         return (
             <div>
                 <Grid item md={2}>
@@ -37,7 +46,7 @@ class LandingHostItems extends Component {
                 </Grid>
             </div>
         )
-    }
+    }}
 }
 
 export default connect()(LandingHostItems);

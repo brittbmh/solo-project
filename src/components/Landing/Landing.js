@@ -11,19 +11,33 @@ class Landing extends Component{
     }
 
     guestDetails = () => {
+        if (this.props.userGuestEvents.length === 0) {
+            return (
+                <div>
+                    <p>You are not attending any events.</p>
+                </div>
+            )
+        } else {
         return (
             this.props.userGuestEvents.map((guestEvent, i) => {
                 return (<LandingGuestItems moveToEvent={this.moveToEvent} key={i} event={guestEvent} />)
             })
-        )
+        )}
     }
 
     hostDetails = () => {
+        if (this.props.userHostEvents.length === 0) {
+            return (
+                <div>
+                    <p>You are not hosting any events.</p>
+                </div>
+            )
+        } else {
         return (
             this.props.userHostEvents.map((hostEvent, i) => {
                 return (<LandingHostItems moveToEvent={this.moveToEvent} key={i} event={hostEvent} />)
             })
-        )
+        )}
     }
 
     moveToEvent = (page) => {
