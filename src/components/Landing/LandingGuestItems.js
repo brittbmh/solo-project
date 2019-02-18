@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import {connect} from 'react-redux';
 
 //card styling
 import Card from '@material-ui/core/Card';
@@ -10,6 +11,14 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 class LandingGuestItems extends Component {
+
+    moveToGuest = () => {
+        console.log(this.props.event);
+        const event = { eventId: this.props.event.event_id };
+        this.props.dispatch({ type: 'SET_EVENT_ID', payload: event });
+        this.props.moveToEvent('/guestpage');
+    }
+
     render() {
         return (
             <div>
@@ -20,7 +29,7 @@ class LandingGuestItems extends Component {
                             <Typography>{moment(this.props.event.date).format('MM/DD/YYYY')}</Typography>
                             <Typography>Host: {this.props.event.first_name} {this.props.event.last_name}</Typography>
                             <CardActions>
-                                <Button size="small">Event Page</Button>
+                                <Button onClick={this.moveToGuest} size="small">Event Page</Button>
                             </CardActions>
                         </CardContent>
                     </Card>
@@ -30,4 +39,4 @@ class LandingGuestItems extends Component {
     }
 }
 
-export default LandingGuestItems;
+export default connect()(LandingGuestItems);

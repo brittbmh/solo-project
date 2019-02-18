@@ -13,7 +13,7 @@ class Landing extends Component{
     guestDetails = () => {
         return (
             this.props.userGuestEvents.map((guestEvent, i) => {
-                return (<LandingGuestItems key={i} event={guestEvent[0]} />)
+                return (<LandingGuestItems moveToEvent={this.moveToEvent} key={i} event={guestEvent[0]} />)
             })
         )
     }
