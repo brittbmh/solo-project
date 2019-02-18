@@ -20,6 +20,7 @@ import NewEvent from '../New Event/NewEvent';
 import HostPage from '../HostPage/HostPage';
 import GuestPage from '../GuestPage/GuestPage';
 import EditDetails from '../EditDetails/EditDetails';
+import Landing from '../Landing/Landing';
 
 import './App.css';
 
@@ -60,12 +61,15 @@ class App extends Component {
               component={InfoPage}
             />
             <ProtectedRoute
+              path='/landing'
+              component={Landing}
+            />
+            <ProtectedRoute
               exact
               path="/hostpage"
               component={HostPage}
             />
             <ProtectedRoute
-              
               path="/guestpage"
               component={GuestPage}
             />
@@ -75,7 +79,6 @@ class App extends Component {
               component={EditDetails}
             />
             <ProtectedRoute
-              
               path="/NewEvent"
               component={NewEvent}
             />

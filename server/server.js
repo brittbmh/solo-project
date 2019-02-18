@@ -12,6 +12,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const eventsRouter = require('./routes/events.router');
 const hostRouter = require('./routes/host.router');
+const landingRouter = require('./routes/landing.router');
 const guestRouter = require('./routes/guest.router');
 
 // Body parser middleware
@@ -30,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/events', eventsRouter);
 app.use('/api/host', hostRouter);
 app.use('/api/guest', guestRouter);
+app.use('/api/landing', landingRouter);
 
 // Serve static files
 app.use(express.static('build'));
