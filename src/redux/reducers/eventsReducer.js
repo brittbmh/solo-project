@@ -19,12 +19,9 @@ const setPartyOptions = (state = [], action) => {
     }
 }
 
-const defaultEvent ={
-    eventId: 12,
-    name: "Bee's Party"
-}
 
-const currentEvent = (state = defaultEvent, action) => {
+
+const currentEvent = (state = {}, action) => {
     switch (action.type) {
         case 'SET_EVENT_ID':
             return {...state, eventId: action.payload.eventId};
@@ -33,39 +30,27 @@ const currentEvent = (state = defaultEvent, action) => {
         case 'HOLD_CURRENT':
             return action.payload;
         case 'CLEAR_CURRENT_EVENT':
-            return defaultEvent;
+            return {};
         default:
             return state;
     }
 }
 
-const defaultGuest = [{guest: 'Sam', email: 'sam@gmailx.com', id: 2}, {guest: 'Adam', email: 'timeowner@yahoo.comx', id: 3}];
 
-const guestList = (state = defaultGuest, action ) => {
+const guestList = (state = [], action ) => {
     switch (action.type) {
         case 'ADD_GUEST' :
             return [...state, action.payload];
         case 'CLEAR_GUESTS':
-            return defaultGuest;
+            return [];
         default:
             return state;
     }
 }
 
-const defaultParty = {
-    partyType: '9',
-    partyOptions: ["2", "6"],
-    partyDetails: {
-        title: "Bee's Party",
-        date: "2/11/19",
-        description: "PARTY!!",
-        endTime: "6:30",
-        location: "Bee's House",
-        startTime: "4:30"
-    }
-}
 
-const setNewParty = (state = defaultParty, action) => {
+
+const setNewParty = (state = {}, action) => {
     switch (action.type) {
         case 'SET_NEW_PARTY_TYPE':
             return { ...state, partyType: action.payload };
@@ -74,7 +59,7 @@ const setNewParty = (state = defaultParty, action) => {
         case 'SET_NEW_PARTY_DETAILS':
             return { ...state, partyDetails: action.payload };
         case 'CLEAR_NEW_PARTY':
-            return defaultParty;
+            return {};
         default:
             return state;
     }

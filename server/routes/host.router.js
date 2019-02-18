@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-
+//get event details for host page
 router.get('/:id', (req, res) => {
     console.log('In /host GET');
     const id = req.params.id;
@@ -54,8 +54,6 @@ router.get('/guests/:id', (req, res) => {
                     // guests.push(guest);
                 }
                 console.log(RSVP);
-                
-                console.log(RSVP[0].responses);
                 
                 await client.query('COMMIT');
                 res.send({ RSVP });

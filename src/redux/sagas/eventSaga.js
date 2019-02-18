@@ -14,6 +14,7 @@ function* fetchPartyTypes() {
 function* createNewParty(action) {
     try{
         const eventId = yield axios.post('api/events/new', action.payload);
+        console.log(eventId.data);
         yield put({type: 'SET_EVENT_ID', payload: eventId.data})
         yield put({type: 'CLEAR_NEW_PARTY'})
     } 
@@ -23,6 +24,7 @@ function* createNewParty(action) {
     }
 }
 
+//send list of guests to the database
 function* postGuests(action) {
     try{
         yield axios.post('api/events/guests', action.payload);
@@ -33,6 +35,8 @@ function* postGuests(action) {
     }
 }
 
+
+//hold options for selected party type on reducer
 function* fetchPartyOptions(action) {
     try {
         console.log(action.payload);
@@ -46,12 +50,15 @@ function* fetchPartyOptions(action) {
     }
 }
 
+//get event Name to display
 function* fetchEventName(action) {
     try{
+        console.log(action.payload);
+        
         const eventName = yield axios.get(`api/events/name/${action.payload}`);
         console.log(eventName);
-        
         yield put({type: 'SET_EVENT_NAME', payload: eventName.data})
+        
     }
     catch(error){
         yield console.log('error in fetchEventName', error);

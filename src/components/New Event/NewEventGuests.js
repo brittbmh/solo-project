@@ -5,8 +5,8 @@ class NewEventGuests extends Component {
     constructor(props){
         super(props);
         this.state = {
-            guest: 'Sam',
-            email: 'sam@gmailx.com'
+            guest: '',
+            email: ''
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -16,6 +16,8 @@ class NewEventGuests extends Component {
     }
 
     getParty = () => {
+        console.log(this.props.currentEvent.eventId);
+        
         this.props.dispatch({ type: 'GET_CURRENT_PARTY', payload: this.props.currentEvent.eventId });
     }
 
@@ -28,11 +30,10 @@ class NewEventGuests extends Component {
         })
     }
 
+    //verify guest is a user and then hold in reducer
     addGuest = (event) => {
         event.preventDefault();
         this.props.dispatch({type:'MATCH_GUEST', payload: this.state})
-        // this.props.dispatch({type: 'ADD_GUEST', payload: this.state })
-        
     }
 
     guestDetails = () => {

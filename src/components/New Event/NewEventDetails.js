@@ -5,12 +5,12 @@ class NewEventDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "Bee's Party",
-            location: "Bee's House",
-            startTime: "5:00",
-            endTime: "11:00",
-            description: "PARTY!!",
-            date: "2/22/19"
+            title: "",
+            location: "",
+            startTime: "",
+            endTime: "",
+            description: "",
+            date: ""
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -28,7 +28,9 @@ class NewEventDetails extends Component {
     setDetails = (event) => {
         event.preventDefault();
         this.props.dispatch({ type: 'SET_NEW_PARTY_DETAILS', payload: this.state });
-        this.props.dispatch({ type: 'CREATE_NEW_EVENT', payload: this.props.newParty });
+        const newParty = this.props.newParty;
+        newParty.partyDetails = this.state;
+        this.props.dispatch({ type: 'CREATE_NEW_EVENT', payload: newParty });
         alert('New party created')
         this.props.history.push('/NewEvent/Guests');
     }

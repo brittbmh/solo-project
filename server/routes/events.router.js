@@ -56,6 +56,7 @@ router.get('/user/:email', (req, res) => {
 })
 
 router.post('/guests', (req, res) => {
+    
     if (req.isAuthenticated()) {
         (async () => {
             const client = await pool.connect();
@@ -63,6 +64,8 @@ router.post('/guests', (req, res) => {
                 await client.query('BEGIN');
                 const eventId = req.body.eventId;
                 const guestList = req.body.guestList;
+                
+                
                 for (guest of guestList){
                     let queryText = `INSERT INTO "RSVP" ("guest_id", "event_id") VALUES ($1, $2);`;
                     pool.query(queryText, [guest.id, eventId])
@@ -87,6 +90,7 @@ router.post('/guests', (req, res) => {
 
 
 router.post('/new', (req, res) => {
+    console.log('In event/new POST');
     if (req.isAuthenticated()) {
         (async () => {
             const client = await pool.connect();
@@ -96,8 +100,11 @@ router.post('/new', (req, res) => {
                         VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id";`;
                 const host = req.user.id;
                 const party = req.body;
+                
+                
                 const partyDetails = req.body.partyDetails;
-                const values = [partyDetails.title, partyDetails.location, partyDetails.description, party.partyType, partyDetails.date, partyDetails.startTime, partyDetails.endTime, host];
+                console.log(partyDetails);
+                const values = [partyDetails.title, partyDetails.location, partyDetails.description, parseInt(party.partyType), partyDetails.date, partyDetails.startTime, partyDetails.endTime, host];
 
                 const eventResult = await client.query(queryText, values);
                 const eventId = eventResult.rows[0].id;

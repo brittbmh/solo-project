@@ -38,10 +38,10 @@ class HostPage extends Component {
 
     render() {
         const event = this.props.currentEvent;
-        
+
         return (
             <div>
-                {event.length} 
+                {event.length}
                 <h3>{event.title}</h3>
                 <p>Date: {moment(event.date).format('MM/DD/YYYY')}</p>
                 <p>Time: {event.time_start} - {event.end_time}</p>
@@ -51,24 +51,25 @@ class HostPage extends Component {
                 <br />
                 <h4>Guest List</h4>
                 <p>(will display guest list with response)</p>
-                <Paper>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>Attending</TableCell>
-                                {this.props.infoFields.map((field, i) => {
-                                    return (<TableCell key={i}>{field.description}</TableCell>);
-                                })}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.tableDetails()}
-                        </TableBody>
-                    </Table>
-                </Paper>
-
+                {this.props.guestList.length > 1 &&
+                    <Paper>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Email</TableCell>
+                                    <TableCell>Attending</TableCell>
+                                    {this.props.infoFields.map((field, i) => {
+                                        return (<TableCell key={i}>{field.description}</TableCell>);
+                                    })}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.tableDetails()}
+                            </TableBody>
+                        </Table>
+                    </Paper>
+                }
             </div>
         )
     }

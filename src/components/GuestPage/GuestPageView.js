@@ -33,6 +33,7 @@ class GuestPageView extends Component {
                 <br />
                 {JSON.stringify(this.props.guestInfo)}
                 <h5>Your Response</h5>
+                {this.props.guestInfo.length >1 &&
                 <Paper>
                     <Table>
                         <TableHead>
@@ -51,6 +52,7 @@ class GuestPageView extends Component {
                         </TableBody>
                     </Table>
                 </Paper>
+                }
             </div>
         )
     }
