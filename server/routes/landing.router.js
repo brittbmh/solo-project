@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
 router.get('/host', (req, res) => {
     console.log('In /host GET');
     const host = req.user.id;
-    const queryText = `SELECT "title", "date" FROM "Events" WHERE "host" = $1;`;
+    const queryText = `SELECT "title", "date", "id" FROM "Events" WHERE "host" = $1;`;
     pool.query(queryText, [host]).then((result) => {
         console.log(result.rows);
         

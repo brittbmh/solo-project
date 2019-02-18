@@ -21,9 +21,13 @@ class Landing extends Component{
     hostDetails = () => {
         return (
             this.props.userHostEvents.map((hostEvent, i) => {
-                return (<LandingHostItems key={i} event={hostEvent} />)
+                return (<LandingHostItems moveToEvent={this.moveToEvent} key={i} event={hostEvent} />)
             })
         )
+    }
+
+    moveToEvent = (page) => {
+        this.props.history.push(page);
     }
 
     render(){
