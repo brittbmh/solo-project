@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-
+//card styling
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
@@ -13,7 +13,6 @@ class LandingGuestItems extends Component {
     render() {
         return (
             <div>
-                {JSON.stringify(this.props.event)}
                 <Grid item md={2}>
                     <Card className="guest-card">
                         <CardContent>

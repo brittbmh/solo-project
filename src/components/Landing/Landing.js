@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import LandingGuestItems from './LandingGuestItems';
+import LandingHostItems from './LandingHostItems';
+import './Landing.css';
 
 class Landing extends Component{
 
@@ -16,6 +18,14 @@ class Landing extends Component{
         )
     }
 
+    hostDetails = () => {
+        return (
+            this.props.userHostEvents.map((hostEvent, i) => {
+                return (<LandingHostItems key={i} event={hostEvent} />)
+            })
+        )
+    }
+
     render(){
         return(
             <div>
@@ -24,8 +34,7 @@ class Landing extends Component{
                 {this.guestDetails()}
                 <br/>
                 <h4>Events Hosting:</h4>
-                {JSON.stringify(this.props.userHostEvents)}
-
+                {this.hostDetails()}
 
             </div>
         )
