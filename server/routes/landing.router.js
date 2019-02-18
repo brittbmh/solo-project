@@ -14,13 +14,13 @@ router.get('/', (req, res) => {
                 const eventList = await client.query(queryText, [guest]);
                 const events = eventList.rows;
                 console.log(events);
-                let answer;
+                let answer = [];
                 for (let event of events) {
                     queryText = `SELECT "Events"."title", "Events"."id" AS "event_id", "Events"."date", "Person"."first_name", "Person"."last_name" 
                                 FROM "Events" JOIN "Person" ON "Events"."host" = "Person"."id" WHERE "Events"."id" = $1;`
                     const secondPull = await client.query(queryText, [event.event_id]);
                     console.log(secondPull.rows);
-                    answer = secondPull.rows;  
+                    answer.push(secondPull.rows);  
                 }
                 await client.query('COMMIT');
                 res.send(answer);

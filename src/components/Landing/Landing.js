@@ -20,4 +20,8 @@ class Landing extends Component{
     }
 }
 
+const mapReduxStoreToProps = (reduxStore) => ({
+    userGuestEvents: reduxStore.landing.setUserGuestEvents
+})
+
 export default connect()(Landing);

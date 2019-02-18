@@ -5,6 +5,7 @@ import user from './userReducer';
 import events from './eventsReducer';
 import host from './hostReducer';
 import guest from './guestReducer';
+import landing from './landingReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -13,6 +14,7 @@ import guest from './guestReducer';
 // Lets make a bigger object for our store, with the objects from our reducers.
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
+  landing,
   guest,
   events,
   host,
