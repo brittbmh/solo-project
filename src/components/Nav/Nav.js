@@ -6,7 +6,7 @@ import './Nav.css';
 
 const Nav = (props) => (
   <div className="nav">
-    <Link to="/home">
+    <Link to="/landing">
       <h2 className="nav-title">Bonne Fête</h2>
     </Link>
     <div className="nav-right">
@@ -22,9 +22,9 @@ const Nav = (props) => (
           <Link className="nav-link" to="/NewEvent/Type">
             Create New Event
           </Link>
-          <Link className="nav-link" to="/info">
+          {/* <Link className="nav-link" to="/info">
             Info Page
-          </Link>
+          </Link> */}
           <LogOutButton className="nav-link"/>
         </>
       )}

@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 class GuestPageView extends Component {
 
     tableDetails = () => {
+
         return (
             this.props.guestInfo.response.map((item, i) => {
                 return (<TableCell key={i}>{item.reply}</TableCell>)
@@ -19,40 +20,43 @@ class GuestPageView extends Component {
     }
 
     render() {
+        const guestStuff = this.props.guestInfo;
         let attendance;
-        if (this.props.guestInfo.attending === null) {
+        if (guestStuff.attending === null) {
             attendance = "Not Yet Responded"
-        } else if (this.props.guestInfo.attending === 'true') {
+        } else if (guestStuff.attending === 'true') {
             attendance = 'Yes';
-        } else if (this.props.guestInfo.attending === 'false') {
+        } else if (guestStuff.attending === 'false') {
             attendance = 'No';
         }
-
+        
         return (
+            
             <div>
                 <br />
                 {JSON.stringify(this.props.guestInfo)}
                 <h5>Your Response</h5>
-                {this.props.guestInfo.length >1 &&
+
                 <Paper>
                     <Table>
                         <TableHead>
                             <TableRow>
                                 <TableCell>Attending</TableCell>
-                                {this.props.guestInfo.response.map((item, i) => {
-                                    return (<TableCell key={i}>{item.desc}</TableCell>);
-                                })}
+                                {this.props.guestInfo.response !== undefined &&
+                                    guestStuff.response.map((item, i) => {
+                                        return (<TableCell key={i}>{item.desc}</TableCell>);
+                                    })}
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <TableRow>
                                 <TableCell>{attendance}</TableCell>
-                                {this.tableDetails()}
+                                {this.props.guestInfo.response !== undefined &&
+                                    this.tableDetails()}
                             </TableRow>
                         </TableBody>
                     </Table>
                 </Paper>
-                }
             </div>
         )
     }
