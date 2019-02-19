@@ -34,7 +34,7 @@ class GuestPageRSVP extends Component {
         if (this.state.attending === 'true') {
             return (
                 this.props.infoFields.map((info, i) => {
-                    return (<label>{info.description}<input key={i} name={info.id} onChange={this.handleResponse} placeholder={info.description}></input>
+                    return (<label key={i}>{info.description}<input key={i} name={info.id} onChange={this.handleResponse} placeholder={info.description}></input>
                     </label>
                     )
                 })
