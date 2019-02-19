@@ -16,11 +16,13 @@ router.get('/name', (req, res) => {
 })
 
 router.put('/', (req, res) => {
+    console.log('In guest put', req.body);
+    
     const queryText = `UPDATE "RSVP" SET "attending" = $1 WHERE "event_id" = $2 AND "guest_id" = $3 RETURNING "id";`;
     const guest = req.user.id;
     const eventId = req.body.eventId;
-    const response = req.body.response;
-    const values = [response.attending, eventId, guest];
+    const attending = req.body.attending;
+    const values = [attending, eventId, guest];
     pool.query(queryText, values).then((response) => {
         res.send({rsvp_id: response.rows[0].id});
     }).catch((error) => {
