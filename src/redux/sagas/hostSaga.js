@@ -16,7 +16,6 @@ function* fetchPartyDetails(action) {
 function* fetchInfoFields(action) {
     try {
         console.log('in fetchInfo');
-
         const info = yield axios.get(`/api/host/info/${action.payload}`);
         console.log(info.data);
         yield put({ type: 'SET_INFO_FIELDS', payload: info.data })
@@ -27,7 +26,7 @@ function* fetchInfoFields(action) {
 
 function* fetchGuestList(action) {
     try {
-        console.log('in fetchList');
+        console.log('in fetchList', action.payload);
         const guests = yield axios.get(`/api/host/guests/${action.payload}`);
         console.log(guests.data);
         yield put({ type: 'SET_GUESTS', payload: guests.data })

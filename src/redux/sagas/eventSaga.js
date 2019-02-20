@@ -15,8 +15,8 @@ function* createNewParty(action) {
     try{
         const eventId = yield axios.post('api/events/new', action.payload);
         console.log(eventId.data);
-        yield put({type: 'SET_EVENT_ID', payload: eventId.data})
-        yield put({type: 'CLEAR_NEW_PARTY'})
+        yield put({type: 'SET_EVENT_ID', payload: eventId.data});
+        yield put({type: 'CLEAR_NEW_PARTY'});
     } 
     catch (error){
         alert('something went wrong');

@@ -11,18 +11,25 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 class HostPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = ({
+    // constructor(props) {
+    //     super(props);
+    //     this.state = ({
 
-        })
-    }
+    //     })
+    // }
 
     componentDidMount() {
         this.props.dispatch({ type: 'GET_PARTY_DETAILS', payload: this.props.currentEvent.eventId });
         this.props.dispatch({ type: 'GET_GUEST_LIST', payload: this.props.currentEvent.eventId });
         this.props.dispatch({ type: 'GET_INFO_FIELDS', payload: this.props.currentEvent.eventId })
     }
+
+    // componentDidUdpate = (prevProps) => {
+    //     const prevGuests = prevProps.guestList;
+    //     const guests = this.props.guestList;
+    //     if (prevGuests !== guests){}
+        
+    // }
 
     editPage = () => {
         this.props.history.push('/editDetails');
@@ -50,8 +57,9 @@ class HostPage extends Component {
                 <button onClick={this.editPage}>Edit Details</button>
                 <br />
                 <h4>Guest List</h4>
+                {JSON.stringify(this.props.guestList)}
                 <p>(will display guest list with response)</p>
-                {this.props.guestList.length > 1 &&
+                
                     <Paper>
                         <Table>
                             <TableHead>
@@ -65,11 +73,12 @@ class HostPage extends Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.tableDetails()}
+                            {this.props.guestList !== undefined &&
+                                this.tableDetails()}
                             </TableBody>
                         </Table>
                     </Paper>
-                }
+                
             </div>
         )
     }

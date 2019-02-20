@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import swal from 'sweetalert';
 
 class NewEventGuests extends Component {
     constructor(props){
@@ -49,9 +50,24 @@ class NewEventGuests extends Component {
             eventId: this.props.currentEvent.eventId,
             guestList: this.props.guestList
         }
-        this.props.dispatch({type: 'POST_GUEST_LIST', payload: payload});
-        this.props.history.push('/hostpage');
+        this.props.dispatch({ type: 'POST_GUEST_LIST', payload: payload });
+        //swal alerts the user and gives the server time to post the guest list to the db
+        swal({
+            text: 'Guests Invited',
+            button: {
+                text: 'OK',
+                closeModal: true,
+            },
+        })
+            .then(() => {
+                this.props.history.push('/hostpage');
+            }).catch(error => {
+                swal('Something went wrong')
+            })
+        
     }
+
+       
 
     render() {
         return (

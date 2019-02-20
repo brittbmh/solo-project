@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import swal from 'sweetalert';
 
 class NewEventDetails extends Component {
     constructor(props) {
@@ -31,8 +32,19 @@ class NewEventDetails extends Component {
         const newParty = this.props.newParty;
         newParty.partyDetails = this.state;
         this.props.dispatch({ type: 'CREATE_NEW_EVENT', payload: newParty });
-        alert('New party created')
-        this.props.history.push('/NewEvent/Guests');
+        //swal alerts the user and gives the server time to post the party details to the db
+        swal({
+            text: 'New party created',
+            button: {
+                text: 'OK',
+                closeModal: true,
+            },
+        })
+            .then(() => {
+            this.props.history.push('/NewEvent/Guests');
+        }).catch(error => {
+            swal('Something went wrong')
+        })
     }
 
     render() {

@@ -37,12 +37,15 @@ router.get('/guests/:id', (req, res) => {
         (async () => {
             const client = await pool.connect();
             try {
+                
                 await client.query('BEGIN');
                 let queryText = `SELECT "Person"."id" AS "Guest_Id", "Person"."first_name", "Person"."last_name", "Person"."email", "RSVP"."attending", "RSVP"."id" AS "RSVP_Id" 
                                 FROM "RSVP" JOIN "Person" ON "RSVP"."guest_id" = "Person"."id" WHERE "event_id" = $1;`;
                 const event = req.params.id;
+                
                 const firstPull = await client.query(queryText, [event]);
                 const RSVP = firstPull.rows;
+                console.log('host/guests/req', event);
                 for (let item of RSVP){
                     queryText = `SELECT "Info_Fields"."description", "RSVP_Info_Fields"."response" FROM "RSVP_Info_Fields" JOIN "Info_Fields" ON "RSVP_Info_Fields"."info_id" = "Info_Fields"."id" WHERE "rsvp_id" = $1`;``
                     const secondPull = await client.query(queryText, [item.RSVP_Id]);
@@ -53,7 +56,7 @@ router.get('/guests/:id', (req, res) => {
                     // guest.attending = item.attending
                     // guests.push(guest);
                 }
-                console.log(RSVP);
+                
                 
                 await client.query('COMMIT');
                 res.send({ RSVP });

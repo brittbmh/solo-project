@@ -71,6 +71,7 @@ router.post('/guests', (req, res) => {
                     pool.query(queryText, [guest.id, eventId])
                 }
                 await client.query('COMMIT');
+                console.log('end of post guests');
                 res.sendStatus(201);
             } catch (error) {
                 console.log('Rollback', error);
@@ -115,6 +116,8 @@ router.post('/new', (req, res) => {
                     await client.query(queryText, [eventId, option]);
                 }
                 await client.query('COMMIT');
+                
+                
                 res.send({ eventId });
             } catch (error) {
                 console.log('Rollback', error);
