@@ -10,10 +10,7 @@ import Paper from '@material-ui/core/Paper';
 
 class GuestPageView extends Component {
 
-    componentDidMount() {
-        this.props.dispatch({ type: 'GET_GUEST_INFO', payload: { id: this.props.eventId} })
-    }
-
+    
     tableDetails = () => {
         return (
             this.props.guestInfo.response.map((item, i) => {

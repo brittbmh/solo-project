@@ -24,10 +24,10 @@ router.get('/:id', (req,res) => {
                 console.log('in guest GET', req.params);
                 const guest = req.user.id;
                 const id = req.params.id;
-                let queryText = `SELECT "RSVP"."attending", "RSVP"."id" AS "rsvp_id"  
+                let queryText = `SELECT "RSVP"."event_id", "RSVP"."attending", "RSVP"."id" AS "rsvp_id"  
                                     FROM "RSVP" WHERE "RSVP"."event_id" = $1 AND "RSVP"."guest_id" = $2;`
                 const RSVPPull = await client.query(queryText, [parseInt(id), guest]);
-                queryText = `SELECT "info_id" AS "id", "response" AS "reply" FROM "RSVP_Info_Fields" WHERE "rsvp_id" = $1;`;
+                queryText = `SELECT "Info_Fields"."description" as "desc", "RSVP_Info_Fields"."info_id" AS "id", "RSVP_Info_Fields"."response" AS "reply" FROM "RSVP_Info_Fields" JOIN "Info_Fields" ON "RSVP_Info_Fields"."info_id" = "Info_Fields"."id" WHERE "rsvp_id" = $1;`;
                 const RSVP = RSVPPull.rows[0];
                 const RSVPId = RSVP.rsvp_id;
                 const responsePull = await client.query(queryText, [RSVPId])

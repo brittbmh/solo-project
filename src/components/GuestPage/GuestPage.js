@@ -13,7 +13,7 @@ class GuestPage extends Component {
         this.props.dispatch({ type: 'GET_PARTY_DETAILS', payload: this.props.currentEvent.eventId });
         this.props.dispatch({ type: 'GET_GUEST_LIST', payload: this.props.currentEvent.eventId });
         this.props.dispatch({ type: 'GET_INFO_FIELDS', payload: this.props.currentEvent.eventId });
-        // this.props.dispatch({ type: 'GET_GUEST_INFO', payload: this.props.eventId });
+        this.props.dispatch({ type: 'GET_GUEST_INFO', payload:{id:  this.props.currentEvent.eventId }});
         this.props.dispatch({ type: 'GET_GUEST_NAME' })
     }
 
@@ -39,7 +39,7 @@ class GuestPage extends Component {
                     />
                     <Route path='/guestpage/view' 
                         render={(props) => <GuestPageView {...props}
-                            eventId={event.id} infoFields={this.props.infoFields}/>}
+                            eventId={this.props.currentEvent.id} infoFields={this.props.infoFields}/>}
                     />
                 </Switch>
             </div>
