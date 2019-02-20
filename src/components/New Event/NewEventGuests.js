@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import swal from 'sweetalert';
 
 class NewEventGuests extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             guest: '',
@@ -18,7 +18,7 @@ class NewEventGuests extends Component {
 
     getParty = () => {
         console.log(this.props.currentEvent.eventId);
-        
+
         this.props.dispatch({ type: 'GET_CURRENT_PARTY', payload: this.props.currentEvent.eventId });
     }
 
@@ -34,7 +34,7 @@ class NewEventGuests extends Component {
     //verify guest is a user and then hold in reducer
     addGuest = (event) => {
         event.preventDefault();
-        this.props.dispatch({type:'MATCH_GUEST', payload: this.state})
+        this.props.dispatch({ type: 'MATCH_GUEST', payload: this.state })
     }
 
     guestDetails = () => {
@@ -64,23 +64,18 @@ class NewEventGuests extends Component {
             }).catch(error => {
                 swal('Something went wrong')
             })
-        
-    }
 
-       
+    }
 
     render() {
         return (
             <div>
-                
+
                 <h3>{this.props.currentEvent.name}</h3>
                 <h4>Enter Guest Information</h4>
                 <input name="guest" type="text" placeholder="Guest Name" onChange={this.handleChange} />
                 <input name="email" type="text" placeholder="Guest Email" onChange={this.handleChange} />
                 <button onClick={this.addGuest}>Add Guest</button>
-                {JSON.stringify(this.props.currentEvent)}
-                {JSON.stringify(this.state)}
-                {JSON.stringify(this.props.guestList)}
                 <br />
                 <table>
                     <th>

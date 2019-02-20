@@ -35,9 +35,7 @@ class GuestPageView extends Component {
 
             <div>
                 <br />
-                {JSON.stringify(this.props.guestInfo)}
                 <h5>Your Response</h5>
-                {JSON.stringify(this.props.guestResponse)}
                 <Paper>
                     <Table>
                         <TableHead>

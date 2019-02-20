@@ -64,13 +64,8 @@ class NewEventOptions extends Component {
                 <form onSubmit={this.setOptions}>
                     {this.mapInfo()}
                     <button type="submit">Submit</button>
-                    {JSON.stringify(this.state)}
                 </form>
-
-               
-                {JSON.stringify(this.props.newParty)}
                 <br/>
-                {JSON.stringify(this.props.partyOptions)}
             </div>
         )
     }

@@ -60,8 +60,6 @@ class NewEventDetails extends Component {
                     <input name="location" placeholder="Location" onChange={this.handleChange} />
                     <button type="submit">Create Event</button>
                 </form>
-                {JSON.stringify(this.state)}
-                {JSON.stringify(this.props.newParty)}
             </div>
         )
     }

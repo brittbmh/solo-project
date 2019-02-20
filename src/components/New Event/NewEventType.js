@@ -14,7 +14,6 @@ class NewEventType extends Component {
         this.props.dispatch({ type: 'GET_PARTY_TYPES' });
     }
 
-
     handleChange = (event) => {
         this.setState({ partyType: event.target.value })
     }
@@ -40,7 +39,6 @@ class NewEventType extends Component {
         return (
             <div>
                 <h3>Select Party Type:</h3>
-                {JSON.stringify(this.props.types)}
                 <form onSubmit={this.sendType} >
                     <select defaultValue='' required onChange={this.handleChange}>
                         <option value="" disabled defaultValue>Select your option</option>

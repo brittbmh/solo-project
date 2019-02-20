@@ -86,7 +86,6 @@ class GuestPageRSVP extends Component {
                 {this.makeInputs()}
                 <br />
                 <button onClick={this.sendRSVP}>Submit</button>
-                {JSON.stringify(this.state)}
             </div>
         )
     }
