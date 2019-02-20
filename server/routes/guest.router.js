@@ -15,6 +15,42 @@ router.get('/name', (req, res) => {
     })
 })
 
+router.get('/:id', (req,res) => {
+    if (req.isAuthenticated()) {
+        (async () => {
+            console.log('in /guest GET');
+            const client = await pool.connect();
+            try {
+                console.log('in guest GET', req.params);
+                const guest = req.user.id;
+                const id = req.params.id;
+                let queryText = `SELECT "RSVP"."attending", "RSVP"."id" AS "rsvp_id"  
+                                    FROM "RSVP" WHERE "RSVP"."event_id" = $1 AND "RSVP"."guest_id" = $2;`
+                const RSVPPull = await client.query(queryText, [parseInt(id), guest]);
+                queryText = `SELECT "info_id" AS "id", "response" AS "reply" FROM "RSVP_Info_Fields" WHERE "rsvp_id" = $1;`;
+                const RSVP = RSVPPull.rows[0];
+                const RSVPId = RSVP.rsvp_id;
+                const responsePull = await client.query(queryText, [RSVPId])
+                RSVP.response = responsePull.rows;
+                console.log(RSVP);
+                await client.query('COMMIT');
+                res.send(RSVP);
+            } catch (error) {
+                console.log('Rollback', error);
+                await client.query('ROLLBACK');
+                throw error;
+            } finally {
+                client.release();
+            }
+        })().catch((error) => {
+            console.log('CATCH', error);
+            res.sendStatus(500);
+        });
+    } else {
+        res.sendStatus(403);
+    }
+})
+
 router.put('/', (req, res) => {
     console.log('In guest put', req.body);
     

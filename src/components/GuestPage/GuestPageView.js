@@ -10,8 +10,11 @@ import Paper from '@material-ui/core/Paper';
 
 class GuestPageView extends Component {
 
-    tableDetails = () => {
+    componentDidMount() {
+        this.props.dispatch({ type: 'GET_GUEST_INFO', payload: { id: this.props.eventId} })
+    }
 
+    tableDetails = () => {
         return (
             this.props.guestInfo.response.map((item, i) => {
                 return (<TableCell key={i}>{item.reply}</TableCell>)
@@ -24,19 +27,20 @@ class GuestPageView extends Component {
         let attendance;
         if (guestStuff.attending === null) {
             attendance = "Not Yet Responded"
-        } else if (guestStuff.attending === 'true') {
+        } else if (guestStuff.attending === 'true' || guestStuff.attending === true) {
             attendance = 'Yes';
-        } else if (guestStuff.attending === 'false') {
+        } else if (guestStuff.attending === 'false' || guestStuff.attending === false) {
             attendance = 'No';
         }
+        console.log(this.props.eventId);
         
         return (
-            
+
             <div>
                 <br />
                 {JSON.stringify(this.props.guestInfo)}
                 <h5>Your Response</h5>
-
+                {JSON.stringify(this.props.guestResponse)}
                 <Paper>
                     <Table>
                         <TableHead>
@@ -51,7 +55,7 @@ class GuestPageView extends Component {
                         <TableBody>
                             <TableRow>
                                 <TableCell>{attendance}</TableCell>
-                                {this.props.guestInfo.response !== undefined &&
+                                {  this.props.guestInfo.response !== undefined &&
                                     this.tableDetails()}
                             </TableRow>
                         </TableBody>
@@ -64,6 +68,7 @@ class GuestPageView extends Component {
 
 const mapReduxStoreToProps = (reduxStore) => ({
     guestInfo: reduxStore.guest.setGuestInfo,
+    guestResponse: reduxStore.host.setGuestList
 })
 
 export default connect(mapReduxStoreToProps)(GuestPageView);

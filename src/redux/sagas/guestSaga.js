@@ -18,6 +18,18 @@ function* postRSVP(action) {
     }
 }
 
+function* fetchGuestInfo(action) {
+    try{
+        console.log(action.payload);
+        const guests = yield axios.get(`api/guest/${action.payload.id}`);
+        yield put ({type: 'SET_GUEST_INFO', payload: guests.data})
+    } catch (error) {
+        alert('something went wrong');
+        yield console.log('error in fetchGuestInfo', error);
+    }
+
+}
+
 function* fetchGuestName(){
     try{
         const guest = yield axios.get('/api/guest/name');
@@ -31,6 +43,7 @@ function* fetchGuestName(){
 function* guestSaga() {
     yield takeEvery('SEND_RSVP', postRSVP);
     yield takeEvery('GET_GUEST_NAME', fetchGuestName);
+    yield takeEvery('GET_GUEST_INFO', fetchGuestInfo);
 }
 
 export default guestSaga;
