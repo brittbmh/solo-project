@@ -1,13 +1,32 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LandingGuestItems from './LandingGuestItems';
 import LandingHostItems from './LandingHostItems';
 import './Landing.css';
+import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
-class Landing extends Component{
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        height: 140,
+        width: 100,
+    },
+    control: {
+        padding: theme.spacing.unit * 2,
+    },
+});
 
-    componentDidMount(){
-        this.props.dispatch({type: 'GET_EVENTS'});
+class Landing extends Component {
+    state = {
+        spacing: '16',
+    }
+
+    componentDidMount() {
+        this.props.dispatch({ type: 'GET_EVENTS' });
     }
 
     guestDetails = () => {
@@ -18,11 +37,12 @@ class Landing extends Component{
                 </div>
             )
         } else {
-        return (
-            this.props.userGuestEvents.map((guestEvent, i) => {
-                return (<LandingGuestItems moveToEvent={this.moveToEvent} key={i} event={guestEvent} />)
-            })
-        )}
+            return (
+                this.props.userGuestEvents.map((guestEvent, i) => {
+                    return (<LandingGuestItems moveToEvent={this.moveToEvent} key={i} event={guestEvent} />)
+                })
+            )
+        }
     }
 
     hostDetails = () => {
@@ -33,24 +53,31 @@ class Landing extends Component{
                 </div>
             )
         } else {
-        return (
-            this.props.userHostEvents.map((hostEvent, i) => {
-                return (<LandingHostItems moveToEvent={this.moveToEvent} key={i} event={hostEvent} />)
-            })
-        )}
+            return (
+                this.props.userHostEvents.map((hostEvent, i) => {
+                    return (<LandingHostItems moveToEvent={this.moveToEvent} key={i} event={hostEvent} />)
+                })
+            )
+        }
     }
 
     moveToEvent = (page) => {
         this.props.history.push(page);
     }
 
-    render(){
-        return(
+    render() {
+        const { classes } = this.props;
+        const { spacing } = this.state;
+        return (
             <div>
                 <h2>Party List</h2>
                 <h4>Events Attending:</h4>
-                {this.guestDetails()}
-                <br/>
+                
+                        {this.guestDetails()}
+                    
+                
+
+                <br />
                 <h4>Events Hosting:</h4>
                 {this.hostDetails()}
 
@@ -64,4 +91,8 @@ const mapReduxStoreToProps = (reduxStore) => ({
     userHostEvents: reduxStore.landing.setUserHostEvents
 })
 
-export default connect(mapReduxStoreToProps)(Landing);
+Landing.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(connect(mapReduxStoreToProps)(Landing));
