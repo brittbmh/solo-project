@@ -73,7 +73,7 @@ class LandingGuestItems extends Component {
         const { spacing } = this.state;
         return (
             <div>
-                <Grid container direction='row' className={classes.demo} justify="center" spacing={Number(spacing)}>
+                <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>
                     <Grid item xs={3}>
                         <Paper className={classes.paper}>
                             <Card className={classes.card} className="guest-card">

@@ -3,22 +3,8 @@ import { connect } from 'react-redux';
 import LandingGuestItems from './LandingGuestItems';
 import LandingHostItems from './LandingHostItems';
 import './Landing.css';
-import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
-const styles = theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        height: 140,
-        width: 100,
-    },
-    control: {
-        padding: theme.spacing.unit * 2,
-    },
-});
 
 class Landing extends Component {
     state = {
@@ -91,8 +77,6 @@ const mapReduxStoreToProps = (reduxStore) => ({
     userHostEvents: reduxStore.landing.setUserHostEvents
 })
 
-Landing.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(connect(mapReduxStoreToProps)(Landing));
+
+export default connect(mapReduxStoreToProps)(Landing);
