@@ -35,10 +35,20 @@ function* fetchGuestList(action) {
     }
 }
 
+function* editDetails(action) {
+    try{
+        console.log('in edit details');
+        yield axios.put(`/api/host/edit`, action.payload);   
+    } catch (error) {
+        yield console.log('error in edit details', error);
+    }
+}
+
 function* hostSaga () {
-    yield takeEvery('GET_PARTY_DETAILS', fetchPartyDetails)
-    yield takeEvery('GET_INFO_FIELDS', fetchInfoFields)
-    yield takeEvery('GET_GUEST_LIST', fetchGuestList)
+    yield takeEvery('GET_PARTY_DETAILS', fetchPartyDetails);
+    yield takeEvery('GET_INFO_FIELDS', fetchInfoFields);
+    yield takeEvery('GET_GUEST_LIST', fetchGuestList);
+    yield takeEvery('EDIT_DETAILS', editDetails);
 }
 
 export default hostSaga;

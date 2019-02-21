@@ -76,7 +76,23 @@ router.get('/guests/:id', (req, res) => {
     }
 });
 
-
+router.put('/edit', (req, res) => {
+    if (req.isAuthenticated()) {
+        console.log('in edit', req.body);
+        const newDetails = req.body;
+        const queryText = `UPDATE "Events" SET "date" = $1, "location" = $2, "title" = $3, "description" = $4, 
+                            "time_start" = $5, "end_time" = $6 WHERE "id" = $7;`;
+        pool.query(queryText, [newDetails.date, newDetails.location, newDetails.title, newDetails.desc, newDetails.startTime, newDetails.endTime, newDetails.eventId])
+        .then((result) => {
+            res.sendStatus(200);
+        }).catch((error) => {
+            res.sendStatus(500);
+            console.log(error);
+        })
+    } else {
+        res.sendStatus(403);
+    }
+})
 
 
 module.exports = router;
