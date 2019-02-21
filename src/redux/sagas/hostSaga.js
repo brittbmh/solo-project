@@ -38,7 +38,8 @@ function* fetchGuestList(action) {
 function* editDetails(action) {
     try{
         console.log('in edit details');
-        yield axios.put(`/api/host/edit`, action.payload);   
+        yield axios.put(`/api/host/edit`, action.payload); 
+        yield put({type: 'HOLD_CURRENT', payload: action.payload}) 
     } catch (error) {
         yield console.log('error in edit details', error);
     }

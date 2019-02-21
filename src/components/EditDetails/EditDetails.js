@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import moment from 'moment';
+import swal from 'sweetalert';
 
 class EditDetails extends Component {
     constructor(props) {
@@ -15,9 +16,9 @@ class EditDetails extends Component {
         this.setState({
             title: event.title,
             location: event.location,
-            desc: event.description,
-            startTime: event.time_start,
-            endTime: event.end_time,
+            description: event.description,
+            time_start: event.time_start,
+            end_time: event.end_time,
             date: event.date,
         })
     }
@@ -34,8 +35,9 @@ class EditDetails extends Component {
 
     updateDetails = () => {
         const newDetails = this.state;
-        newDetails.eventId = this.props.currentEvent.id;
+        newDetails.id = this.props.currentEvent.id;
         this.props.dispatch({type:'EDIT_DETAILS', payload: newDetails});
+        this.props.history.push('/hostpage');
     }
 
     render(){
@@ -47,9 +49,9 @@ class EditDetails extends Component {
                 <form onSubmit={this.updateDetails}>
                     <input name="title" value={this.state.title} placeholder="Name of Event" onChange={this.handleChange} />
                     <input name="date" value={moment(this.state.date).format('MM/DD/YYYY')} placeholder="Date" onChange={this.handleChange} />
-                    <input name="startTime" value={this.state.startTime} placeholder="Start Time" onChange={this.handleChange} />
-                    <input name="endTime" value={this.state.endTime} placeholder="End Time" onChange={this.handleChange} />
-                    <input name="description" value={this.state.desc} placeholder="Description" onChange={this.handleChange} />
+                    <input name="time_start" value={this.state.time_start} placeholder="Start Time" onChange={this.handleChange} />
+                    <input name="end_time" value={this.state.end_time} placeholder="End Time" onChange={this.handleChange} />
+                    <input name="description" value={this.state.description} placeholder="Description" onChange={this.handleChange} />
                     <input name="location" value={this.state.location} placeholder="Location" onChange={this.handleChange} />
                     <button type="submit">Update Event</button>
                 </form>
