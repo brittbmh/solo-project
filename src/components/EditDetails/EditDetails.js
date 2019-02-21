@@ -44,8 +44,8 @@ class EditDetails extends Component {
         return(
             <div>
                 <h3>{event.title}</h3>
-                {JSON.stringify(event)}
                 <form onSubmit={this.updateDetails}>
+                <h4>Update details and click submit</h4>
                     <input name="title" value={this.state.title} placeholder="Name of Event" onChange={this.handleChange} />
                     <input name="date" value={moment(this.state.date).format('MM/DD/YYYY')} placeholder="Date" onChange={this.handleChange} />
                     <input name="time_start" value={this.state.time_start} placeholder="Start Time" onChange={this.handleChange} />
