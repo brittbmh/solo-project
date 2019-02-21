@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import { Table } from '@material-ui/core';
+
 
 class HostTableItems extends Component {
 
@@ -22,6 +23,15 @@ class HostTableItems extends Component {
         }
     }
 
+    deleteGuest = () => {
+        const payload = {
+            guestId: this.props.guest.Guest_Id,
+            RSVPId: this.props.guest.RSVP_Id,
+        }
+        console.log(payload);
+        this.props.dispatch({type: 'DELETE_GUEST', payload: payload })
+    }
+
     render() {
         let attendance;
         if (this.props.guest.attending === null) {
@@ -38,10 +48,10 @@ class HostTableItems extends Component {
                 <TableCell>{this.props.guest.email}</TableCell>
                 <TableCell>{attendance}</TableCell>
                 {this.loadResponses()}
-                <TableCell><button>Delete</button></TableCell>
+                <TableCell><button onClick={this.deleteGuest}>Delete</button></TableCell>
             </TableRow>
         )
     }
 }
 
-export default HostTableItems;
+export default connect()(HostTableItems);

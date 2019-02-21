@@ -37,7 +37,6 @@ router.get('/guests/:id', (req, res) => {
         (async () => {
             const client = await pool.connect();
             try {
-
                 await client.query('BEGIN');
                 let queryText = `SELECT "Person"."id" AS "Guest_Id", "Person"."first_name", "Person"."last_name", "Person"."email", "RSVP"."attending", "RSVP"."id" AS "RSVP_Id" 
                                 FROM "RSVP" JOIN "Person" ON "RSVP"."guest_id" = "Person"."id" WHERE "event_id" = $1;`;
@@ -47,22 +46,13 @@ router.get('/guests/:id', (req, res) => {
                 const RSVP = firstPull.rows;
                 console.log('host/guests/req', event);
                 for (let item of RSVP) {
-                    queryText = `SELECT "Info_Fields"."description", "RSVP_Info_Fields"."response" FROM "RSVP_Info_Fields" JOIN "Info_Fields" ON "RSVP_Info_Fields"."info_id" = "Info_Fields"."id" WHERE "rsvp_id" = $1`; ``
+                    queryText = `SELECT "Info_Fields"."description", "RSVP_Info_Fields"."id" AS "Info_Id", "RSVP_Info_Fields"."response" FROM "RSVP_Info_Fields" 
+                                JOIN "Info_Fields" ON "RSVP_Info_Fields"."info_id" = "Info_Fields"."id" WHERE "rsvp_id" = $1`; ``
                     const secondPull = await client.query(queryText, [item.RSVP_Id]);
                     console.log('secondPull.rows', secondPull.rows);
                     let answer = secondPull.rows;
-                    // if (answer.length > 0) {
-                        item.responses = answer;
-                    // }
-                    // else {
-
-                    // }
-                    // response.info_id = item.info_id;
-                    // guest.attending = item.attending
-                    // guests.push(guest);
+                    item.responses = answer;
                 }
-
-
                 await client.query('COMMIT');
                 res.send({ RSVP });
             } catch (error) {
@@ -99,5 +89,34 @@ router.put('/edit', (req, res) => {
     }
 })
 
+router.delete('/guest/:rsvpid', (req, res) => {
+    if (req.isAuthenticated()) {
+        (async () => {
+            const client = await pool.connect();
+            try {
+                await client.query('BEGIN');
+                console.log('in delete', req.params);
+                const rsvpid = req.params.rsvpid;
+                let queryText = `DELETE FROM "RSVP_Info_Fields" WHERE "rsvp_id" = $1;`;
+                await client.query(queryText, [parseInt(rsvpid)])
+                queryText = `DELETE FROM "RSVP" WHERE "id" = $1;`;
+                await client.query(queryText, [parseInt(rsvpid)])
+                await client.query('COMMIT');
+                res.sendStatus(200);
+            } catch (error) {
+                console.log('Rollback', error);
+                await client.query('ROLLBACK');
+                throw error;
+            } finally {
+                client.release();
+            }
+        })().catch((error) => {
+            console.log('CATCH', error);
+            res.sendStatus(500);
+        });
+    } else {
+        res.sendStatus(403);
+    }
+})
 
 module.exports = router;

@@ -45,11 +45,21 @@ function* editDetails(action) {
     }
 }
 
+function* deleteGuest(action) {
+    try {
+        console.log(action.payload);
+        yield axios.delete(`api/host/guest/${action.payload.RSVPId}`);
+    } catch (error) {
+        yield console.log('error in delete guest', error);
+    }
+}
+
 function* hostSaga () {
     yield takeEvery('GET_PARTY_DETAILS', fetchPartyDetails);
     yield takeEvery('GET_INFO_FIELDS', fetchInfoFields);
     yield takeEvery('GET_GUEST_LIST', fetchGuestList);
     yield takeEvery('EDIT_DETAILS', editDetails);
+    yield takeEvery('DELETE_GUEST', deleteGuest)
 }
 
 export default hostSaga;

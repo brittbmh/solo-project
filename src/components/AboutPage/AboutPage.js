@@ -11,6 +11,7 @@ const AboutPage = () => (
       <p>
         This about page is for anyone to read!
       </p>
+      <p>Tech Used: React.js, Node.js/Express.js, AJAX/Axios, Redux.js, PostgreSQL, HTML, CSS </p>
     </div>
   </div>
 );
