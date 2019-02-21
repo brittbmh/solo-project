@@ -18,33 +18,30 @@ const styles = theme => ({
         flexGrow: 1,
     },
     card: {
-        minWidth: 275,
-    },
-    paper: {
-        height: 150,
-        width: 160,
+        minWidth: 175,
+        height: 250,
     },
     control: {
         padding: theme.spacing.unit * 2,
     },
     paper: {
-        padding: theme.spacing.unit * 2,
+        height: 160,
+        width: 160,
         textAlign: 'center',
-        color: theme.palette.text.secondary,
     },
     pos: {
-        marginBottom: 12,
+        marginBottom: 4,
+        fontSize: 18,
     },
     title: {
-        fontSize: 14,
+        fontSize: 16,
     },
+    CardActions: {
+        justifyContent: 'center',
+    }
 });
 
 class LandingHostItems extends Component {
-
-    state = {
-        spacing: '24',
-    }
 
     moveToHost = () => {
         console.log(this.props.event);
@@ -57,35 +54,33 @@ class LandingHostItems extends Component {
         console.log(this.props.event);
 
         const { classes } = this.props;
-        const { spacing } = this.state;
-        
-        if (this.props.event.length === 0){
+
+        if (this.props.event.length === 0) {
             return (
                 <div>
                     <p>You are not hosting any events.</p>
                 </div>
             )
         } else {
-        return (
-            <div>
-                <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>
-                    <Grid item xs={3}>
+            return (
+                <div>
+                    <Grid className="innerGrid" item xs={6}>
                         <Paper className={classes.paper}>
                             <Card className={classes.card} className="host-card">
                                 <CardContent>
-                            <Typography>{this.props.event.title}</Typography>
-                            <Typography>{moment(this.props.event.date).format('MM/DD/YYYY')}</Typography>
-                            <CardActions>
-                                <Button onClick={this.moveToHost} size="small">Event Page</Button>
-                            </CardActions>
-                        </CardContent>
+                                    <Typography className={classes.title}>{this.props.event.title}</Typography>
+                                    <Typography>{moment(this.props.event.date).format('MM/DD/YYYY')}</Typography>
+                                    <CardActions className={classes.CardActions}>
+                                        <Button onClick={this.moveToHost} size="small">Event Page</Button>
+                                    </CardActions>
+                                </CardContent>
                             </Card>
                         </Paper>
                     </Grid>
-                </Grid>
-            </div>
-        )
-    }}
+                </div>
+            )
+        }
+    }
 }
 
 LandingHostItems.propTypes = {

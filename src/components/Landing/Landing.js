@@ -5,10 +5,23 @@ import LandingHostItems from './LandingHostItems';
 import './Landing.css';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    control: {
+        padding: theme.spacing.unit * 2,
+    },
+    pos: {
+        marginBottom: 12,
+    },
+});
 
 class Landing extends Component {
     state = {
-        spacing: '16',
+        spacing: '12',
     }
 
     componentDidMount() {
@@ -56,27 +69,31 @@ class Landing extends Component {
         const { spacing } = this.state;
         return (
             <div>
-                <h2>Party List</h2>
+                <h2>{this.props.user.first_name}'s Party List</h2>
                 <h4>Events Attending:</h4>
-                
-                        {this.guestDetails()}
-                    
-                
+                <Grid container className={classes.root} justify="center" spacing={Number(spacing)}>
+                    {this.guestDetails()}
+                </Grid>
 
                 <br />
+                
                 <h4>Events Hosting:</h4>
+                <Grid container className={classes.root} justify="center" spacing={Number(spacing)}>
                 {this.hostDetails()}
-
-            </div>
+                </Grid>
+            </div >
         )
     }
 }
 
 const mapReduxStoreToProps = (reduxStore) => ({
     userGuestEvents: reduxStore.landing.setUserGuestEvents,
-    userHostEvents: reduxStore.landing.setUserHostEvents
+    userHostEvents: reduxStore.landing.setUserHostEvents,
+    user: reduxStore.user
 })
 
+Landing.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
-
-export default connect(mapReduxStoreToProps)(Landing);
+export default withStyles(styles)(connect(mapReduxStoreToProps)(Landing));

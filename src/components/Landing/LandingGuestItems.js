@@ -10,33 +10,40 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: { main: '#e5e3f4' }, // Purple and green play nicely together.
+        secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
+    },
+    typography: { useNextVariants: true },
+});
 
 const styles = theme => ({
     root: {
         flexGrow: 1,
     },
     card: {
-        minWidth: 275,
-    },
-    paper: {
-        height: 150,
-        width: 160,
+        minWidth: 175,
+        height: 250,
     },
     control: {
         padding: theme.spacing.unit * 2,
     },
     paper: {
-        padding: theme.spacing.unit * 2,
+        height: 200,
+        width: 160,
         textAlign: 'center',
-        color: theme.palette.text.secondary,
     },
     pos: {
-        marginBottom: 12,
+        marginBottom: 4,
+        fontSize: 16,
     },
     title: {
-        fontSize: 14,
+        fontSize: 16,
     },
     CardActions: {
         justifyContent: 'center',
@@ -44,10 +51,6 @@ const styles = theme => ({
 });
 
 class LandingGuestItems extends Component {
-
-    state = {
-        spacing: '24',
-    }
 
     moveToGuest = () => {
         console.log(this.props.event);
@@ -73,25 +76,24 @@ class LandingGuestItems extends Component {
         }
 
         const { classes } = this.props;
-        const { spacing } = this.state;
         return (
             <div>
-                <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>
-                    <Grid item xs={3}>
-                        <Paper className={classes.paper}>
-                            <Card className={classes.card} className="guest-card">
+                <Grid className="innerGrid" item xs={6}>
+                    <Paper className={classes.paper}>
+                        <Card className={classes.card} className="guest-card">
+                            <MuiThemeProvider theme={theme}>
                                 <CardContent>
                                     <Typography className={classes.title}>{this.props.event.title}</Typography>
                                     <Typography>{moment(this.props.event.date).format('MM/DD/YYYY')}</Typography>
                                     <Typography>Host: {this.props.event.first_name} {this.props.event.last_name}</Typography>
-                                    <Typography className={classes.pos} >{attending}</Typography>
                                     <CardActions className={classes.CardActions}>
                                         <Button onClick={this.moveToGuest} size="small">Event Page</Button>
                                     </CardActions>
+                                    <Typography className={classes.pos} color="Primary">{attending}</Typography>
                                 </CardContent>
-                            </Card>
-                        </Paper>
-                    </Grid>
+                            </MuiThemeProvider>
+                        </Card>
+                    </Paper>
                 </Grid>
             </div>
         )

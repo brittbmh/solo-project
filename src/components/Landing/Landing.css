@@ -1,8 +1,21 @@
 .host-card {
     background-color: #B6D0EA !important;
+    height: 160px !important;
 }
 
 .guest-card {
     background-color: #AF9DC4 !important;
-    
+    height: 200px !important;
+}
+
+.pos {
+    color: white !important;
+}
+
+h2 {
+    text-align: center;
+}
+
+.innerGrid {
+    margin: 10px !important;
 }
