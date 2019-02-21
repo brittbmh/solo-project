@@ -38,6 +38,9 @@ const styles = theme => ({
     title: {
         fontSize: 14,
     },
+    CardActions: {
+        justifyContent: 'center',
+    }
 });
 
 class LandingGuestItems extends Component {
@@ -82,7 +85,7 @@ class LandingGuestItems extends Component {
                                     <Typography>{moment(this.props.event.date).format('MM/DD/YYYY')}</Typography>
                                     <Typography>Host: {this.props.event.first_name} {this.props.event.last_name}</Typography>
                                     <Typography className={classes.pos} >{attending}</Typography>
-                                    <CardActions>
+                                    <CardActions className={classes.CardActions}>
                                         <Button onClick={this.moveToGuest} size="small">Event Page</Button>
                                     </CardActions>
                                 </CardContent>
