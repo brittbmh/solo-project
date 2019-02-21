@@ -25,7 +25,7 @@ class HostPage extends Component {
     tableDetails = () => {
         return (
             this.props.guestList.map((guest, i) => {
-                return (<HostTableItems key={i} guest={guest} />)
+                return (<HostTableItems key={i} infoFields={this.props.infoFields} guest={guest} />)
             })
         )
     }
@@ -54,6 +54,7 @@ class HostPage extends Component {
                                 {this.props.infoFields.map((field, i) => {
                                     return (<TableCell key={i}>{field.description}</TableCell>);
                                 })}
+                                <TableCell>Delete Guest</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

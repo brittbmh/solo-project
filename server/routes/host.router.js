@@ -23,7 +23,7 @@ router.get('/info/:id', (req, res) => {
                         WHERE "event_id" = $1;`;
     pool.query(queryText, [id]).then((result) => {
         console.log(result.rows);
-        
+
         res.send(result.rows);
     }).catch((error) => {
         res.sendStatus(500);
@@ -37,27 +37,32 @@ router.get('/guests/:id', (req, res) => {
         (async () => {
             const client = await pool.connect();
             try {
-                
+
                 await client.query('BEGIN');
                 let queryText = `SELECT "Person"."id" AS "Guest_Id", "Person"."first_name", "Person"."last_name", "Person"."email", "RSVP"."attending", "RSVP"."id" AS "RSVP_Id" 
                                 FROM "RSVP" JOIN "Person" ON "RSVP"."guest_id" = "Person"."id" WHERE "event_id" = $1;`;
                 const event = req.params.id;
-                
+
                 const firstPull = await client.query(queryText, [event]);
                 const RSVP = firstPull.rows;
                 console.log('host/guests/req', event);
-                for (let item of RSVP){
-                    queryText = `SELECT "Info_Fields"."description", "RSVP_Info_Fields"."response" FROM "RSVP_Info_Fields" JOIN "Info_Fields" ON "RSVP_Info_Fields"."info_id" = "Info_Fields"."id" WHERE "rsvp_id" = $1`;``
+                for (let item of RSVP) {
+                    queryText = `SELECT "Info_Fields"."description", "RSVP_Info_Fields"."response" FROM "RSVP_Info_Fields" JOIN "Info_Fields" ON "RSVP_Info_Fields"."info_id" = "Info_Fields"."id" WHERE "rsvp_id" = $1`; ``
                     const secondPull = await client.query(queryText, [item.RSVP_Id]);
-                    console.log(secondPull.rows);
+                    console.log('secondPull.rows', secondPull.rows);
                     let answer = secondPull.rows;
-                    item.responses = answer;
+                    // if (answer.length > 0) {
+                        item.responses = answer;
+                    // }
+                    // else {
+
+                    // }
                     // response.info_id = item.info_id;
                     // guest.attending = item.attending
                     // guests.push(guest);
                 }
-                
-                
+
+
                 await client.query('COMMIT');
                 res.send({ RSVP });
             } catch (error) {
@@ -83,12 +88,12 @@ router.put('/edit', (req, res) => {
         const queryText = `UPDATE "Events" SET "date" = $1, "location" = $2, "title" = $3, "description" = $4, 
                             "time_start" = $5, "end_time" = $6 WHERE "id" = $7;`;
         pool.query(queryText, [newDetails.date, newDetails.location, newDetails.title, newDetails.description, newDetails.time_start, newDetails.end_time, newDetails.id])
-        .then((result) => {
-            res.sendStatus(200);
-        }).catch((error) => {
-            res.sendStatus(500);
-            console.log(error);
-        })
+            .then((result) => {
+                res.sendStatus(200);
+            }).catch((error) => {
+                res.sendStatus(500);
+                console.log(error);
+            })
     } else {
         res.sendStatus(403);
     }

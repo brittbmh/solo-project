@@ -2,17 +2,24 @@ import React, { Component } from 'react';
 
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import { Table } from '@material-ui/core';
 
 class HostTableItems extends Component {
 
     loadResponses = () => {
+        if (this.props.guest.responses.length > 0) {
         return (
             this.props.guest.responses.map((answer, i) => {
                 return (
                     <TableCell key={i}>{answer.response}</TableCell>
                 )
-            })
-        )
+            }) 
+            )
+        } else{
+            return (this.props.infoFields.map((field, i) => {
+                return (<TableCell key={i}>n/a</TableCell>);
+            }))
+        }
     }
 
     render() {
@@ -31,6 +38,7 @@ class HostTableItems extends Component {
                 <TableCell>{this.props.guest.email}</TableCell>
                 <TableCell>{attendance}</TableCell>
                 {this.loadResponses()}
+                <TableCell><button>Delete</button></TableCell>
             </TableRow>
         )
     }
