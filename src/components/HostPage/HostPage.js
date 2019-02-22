@@ -63,7 +63,6 @@ class HostPage extends Component {
                         </TableBody>
                     </Table>
                 </Paper>
-
             </div>
         )
     }

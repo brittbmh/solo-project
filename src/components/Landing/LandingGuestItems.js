@@ -86,10 +86,11 @@ class LandingGuestItems extends Component {
                                     <Typography className={classes.title}>{this.props.event.title}</Typography>
                                     <Typography>{moment(this.props.event.date).format('MM/DD/YYYY')}</Typography>
                                     <Typography>Host: {this.props.event.first_name} {this.props.event.last_name}</Typography>
-                                    <CardActions className={classes.CardActions}>
-                                        <Button onClick={this.moveToGuest} size="small">Event Page</Button>
-                                    </CardActions>
                                     <Typography className={classes.pos} color="Primary">{attending}</Typography>
+                                    <CardActions className={classes.CardActions}>
+                                        <Button className="eventButton" onClick={this.moveToGuest} size="small">event page</Button>
+                                    </CardActions>
+                                    
                                 </CardContent>
                             </MuiThemeProvider>
                         </Card>

@@ -30,6 +30,7 @@ class HostTableItems extends Component {
         }
         console.log(payload);
         this.props.dispatch({type: 'DELETE_GUEST', payload: payload })
+        this.forceUpdate();
     }
 
     render() {

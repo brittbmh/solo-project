@@ -21,7 +21,7 @@ const styles = theme => ({
 
 class Landing extends Component {
     state = {
-        spacing: '12',
+        spacing: '16',
     }
 
     componentDidMount() {

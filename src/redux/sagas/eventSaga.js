@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
+import swal from 'sweetalert';
 
 function* fetchPartyTypes() {
     try{
@@ -79,6 +80,7 @@ function* matchGuest(action) {
         yield put({type: 'ADD_GUEST', payload: newGuest})
     } catch (error) {
         yield console.log('error in matchGuest', error);
+        swal('Guest is not a user. Send them an email to suggest they register.')
     }
 }
 

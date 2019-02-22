@@ -71,7 +71,7 @@ class LandingHostItems extends Component {
                                     <Typography className={classes.title}>{this.props.event.title}</Typography>
                                     <Typography>{moment(this.props.event.date).format('MM/DD/YYYY')}</Typography>
                                     <CardActions className={classes.CardActions}>
-                                        <Button onClick={this.moveToHost} size="small">Event Page</Button>
+                                        <Button className="eventButton" onClick={this.moveToHost} size="small">view event page</Button>
                                     </CardActions>
                                 </CardContent>
                             </Card>
