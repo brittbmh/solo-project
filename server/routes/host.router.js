@@ -56,7 +56,7 @@ router.get('/guests/:id', (req, res) => {
                 await client.query('COMMIT');
                 res.send({ RSVP });
             } catch (error) {
-                console.log('Rollback', error);
+                console.log('Rollback host/guests', error);
                 await client.query('ROLLBACK');
                 throw error;
             } finally {

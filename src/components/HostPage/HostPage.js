@@ -11,11 +11,23 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 class HostPage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            eventId: this.props.currentEvent.eventId,
+        }
+    }
 
     componentDidMount() {
         this.props.dispatch({ type: 'GET_PARTY_DETAILS', payload: this.props.currentEvent.eventId });
         this.props.dispatch({ type: 'GET_GUEST_LIST', payload: this.props.currentEvent.eventId });
         this.props.dispatch({ type: 'GET_INFO_FIELDS', payload: this.props.currentEvent.eventId })
+    }
+
+    getGuests = (id) => {
+        console.log(id);
+        
+        this.props.dispatch({ type: 'GET_GUEST_LIST', payload: id });
     }
 
     editPage = () => {
@@ -25,10 +37,12 @@ class HostPage extends Component {
     tableDetails = () => {
         return (
             this.props.guestList.map((guest, i) => {
-                return (<HostTableItems key={i} infoFields={this.props.infoFields} guest={guest} />)
+                return (<HostTableItems key={i} getGuests={this.getGuests} eventId={this.props.currentEvent.id } infoFields={this.props.infoFields} guest={guest} />)
             })
         )
     }
+
+   
 
     render() {
         const event = this.props.currentEvent;
@@ -44,6 +58,7 @@ class HostPage extends Component {
                 <button onClick={this.editPage}>Edit Details</button>
                 <br />
                 <h4>Guest List</h4>
+                {JSON.stringify(this.props.currentEvent)}
                 <Paper>
                     <Table>
                         <TableHead>

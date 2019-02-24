@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import swal from 'sweetalert';
 
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
 
 class HostTableItems extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            first_name: this.props.guest.first_name,
+            last_name: this.props.guest.last_name,
+            email: this.props.guest.email,
+        }
+    }
 
     loadResponses = () => {
         if (this.props.guest.responses.length > 0) {
@@ -29,8 +38,20 @@ class HostTableItems extends Component {
             RSVPId: this.props.guest.RSVP_Id,
         }
         console.log(payload);
+        
         this.props.dispatch({type: 'DELETE_GUEST', payload: payload })
-        this.forceUpdate();
+        swal({
+            text: 'Guest Deleted',
+            button: {
+                text: 'OK',
+                closeModal: true,
+            },
+        })
+            .then(() => {
+                this.props.getGuests(this.props.eventId)
+            }).catch(error => {
+                swal('Something went wrong', error)
+            })
     }
 
     render() {
@@ -45,8 +66,8 @@ class HostTableItems extends Component {
 
         return (
             <TableRow>
-                <TableCell>{this.props.guest.first_name} {this.props.guest.last_name}</TableCell>
-                <TableCell>{this.props.guest.email}</TableCell>
+                <TableCell>{this.state.first_name} {this.state.last_name}</TableCell>
+                <TableCell>{this.state.email}</TableCell>
                 <TableCell>{attendance}</TableCell>
                 {this.loadResponses()}
                 <TableCell><button onClick={this.deleteGuest}>Delete</button></TableCell>
