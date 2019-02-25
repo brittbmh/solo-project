@@ -58,7 +58,6 @@ class HostPage extends Component {
                 <button onClick={this.editPage}>Edit Details</button>
                 <br />
                 <h4>Guest List</h4>
-                {JSON.stringify(this.props.currentEvent)}
                 <Paper>
                     <Table>
                         <TableHead>

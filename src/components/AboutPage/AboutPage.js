@@ -9,9 +9,9 @@ const AboutPage = () => (
   <div>
     <div>
       <p>
-        This about page is for anyone to read!
+        Thanks to everyone who helped me with this app!
       </p>
-      <p>Tech Used: React.js, Node.js/Express.js, AJAX/Axios, Redux.js, PostgreSQL, HTML, CSS </p>
+      <p>Tech Used: React.js, Node.js/Express.js, AJAX/Axios, Redux.js, PostgreSQL, Sweetalert.js, HTML, CSS </p>
     </div>
   </div>
 );
