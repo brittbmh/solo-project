@@ -22,3 +22,5 @@ export default combineReducers({
     setGuestList,
     setInfoFields
 });
+
+export {setGuestList}
