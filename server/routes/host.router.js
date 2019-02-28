@@ -4,6 +4,7 @@ const router = express.Router();
 
 //get event details for host page
 router.get('/:id', (req, res) => {
+    if (req.isAuthenticated()) {
     console.log('In /host GET');
     const id = req.params.id;
     const queryText = `SELECT * FROM "Events" WHERE "id" = $1;`;
@@ -13,6 +14,9 @@ router.get('/:id', (req, res) => {
         res.sendStatus(500);
         console.log(error);
     })
+    } else {
+        res.sendStatus(403);
+    }
 });
 
 router.get('/info/:id', (req, res) => {
