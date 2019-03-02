@@ -40,7 +40,6 @@
     "testServer": "jest server/test/*.test.js —forceExit"
   },
   "devDependencies": {
-    "jest": "^24.1.0",
     "nodemon": "^1.17.2",
     "supertest": "^3.4.2"
   },
