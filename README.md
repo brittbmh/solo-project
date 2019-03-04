@@ -15,7 +15,7 @@ Before you get started, make sure you have the following software installed on y
 ## Create database and table
 
 Create a new database called `solo_project`. Follow database.sql instructions. 
-```
+
 
 ## Development Setup Instructions
 
