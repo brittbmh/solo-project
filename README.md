@@ -2,6 +2,8 @@
 
 A party planning app that allows the host to both provide details to their guests and to get the information they need from their guests. The app allows the host to select the questions that they want to ask and it will then display those responses in a table. Guests will be able to log in and RSVP and then view their responses along with the details of the event.
 
+- screen shot (./public/img/bonne fete screen shot.png)
+
 ## Prerequisites
 
 Before you get started, make sure you have the following software installed on your computer:
