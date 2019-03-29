@@ -21,6 +21,8 @@ router.get('/:id', (req,res) => {
             console.log('in /guest GET');
             const client = await pool.connect();
             try {
+
+                
                 console.log('in guest GET', req.params);
                 const guest = req.user.id;
                 const id = req.params.id;
@@ -33,6 +35,8 @@ router.get('/:id', (req,res) => {
                 const responsePull = await client.query(queryText, [RSVPId])
                 RSVP.response = responsePull.rows;
                 console.log(RSVP);
+
+
                 await client.query('COMMIT');
                 res.send(RSVP);
             } catch (error) {

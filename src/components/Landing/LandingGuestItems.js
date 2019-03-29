@@ -89,8 +89,7 @@ class LandingGuestItems extends Component {
                                     <Typography className={classes.pos} color="Primary">{attending}</Typography>
                                     <CardActions className={classes.CardActions}>
                                         <Button className="eventButton" onClick={this.moveToGuest} size="small">event page</Button>
-                                    </CardActions>
-                                    
+                                    </CardActions>                                  
                                 </CardContent>
                             </MuiThemeProvider>
                         </Card>
